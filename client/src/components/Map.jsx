@@ -2,6 +2,8 @@ import React, { useState, useEffect, createContext } from "react";
 import "./App.css";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
+//using google maps api to render a map
+
 const containerStyle = { width: "100%", height: "700px" };  // if height set to 100% -> map doesnt render (fix later)
 const center = { lat: 42.3601, lng: -71.0942 }; // MIT coordinates
 

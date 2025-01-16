@@ -4,6 +4,8 @@ import "../../utilities.css";
 import "/Users/Louis/Documents/GitHub/bwu142-atsai12-lavondet/client/src/components/App.css"
 import { UserContext } from "../App";
 
+// Handles logging in with google
+
 const Google = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   return (

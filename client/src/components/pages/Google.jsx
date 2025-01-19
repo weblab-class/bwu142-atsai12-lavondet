@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
-import "/Users/Louis/Documents/GitHub/bwu142-atsai12-lavondet/client/src/components/App.css"
+import "../App.css"
 import { UserContext } from "../App";
 
 // Handles logging in with google

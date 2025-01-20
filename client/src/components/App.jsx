@@ -5,7 +5,6 @@ import "../utilities.css";
 import { socket } from "../client-socket";
 import { get, post } from "../utilities";
 import Map from "./Map"; // Import Google Maps component
-import Add from "./Add";
 
 export const UserContext = createContext(null);
 
@@ -51,7 +50,6 @@ const App = () => {
       <Outlet />
         <Map />  {/* Add the Google Maps component */}
       </div>
-      <Add/>
     </UserContext.Provider>
   );
 };

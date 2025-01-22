@@ -28,11 +28,26 @@ const Map = () => {
   };
 
   const handleSaveMarker = () => {
-    setMarkers([...markers, { ...newMarkerPosition, info: markerInfo }]);
+    const marker = {
+      ...newMarkerPosition,
+      info: markerInfo,
+      timeout: 10000, // Marker will disappear after 10 seconds (adjust as needed)
+      // set timeout to 10 * 60 * 1000 for 10 min or x6 for 1 hour
+    };
+
+    setMarkers((prevMarkers) => [...prevMarkers, marker]);
     setModalVisible(false);
     setNewMarkerPosition(null);
     setMarkerInfo("");
+
+    // Set a timeout to remove the marker after `timeout` duration
+    setTimeout(() => {
+      setMarkers((prevMarkers) =>
+        prevMarkers.filter((m) => m !== marker)
+      );
+    }, marker.timeout);
   };
+
 
   const handleMarkerHover = (marker) => {
     setActiveMarker(marker);
@@ -87,7 +102,7 @@ const Map = () => {
             {activeMarker && (
               <InfoWindow
                 position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
-                onCloseClick={handleMarkerHoverOut}
+                // onCloseClick={handleMarkerHoverOut}
               >
                 <div
                   className="info-window-content"

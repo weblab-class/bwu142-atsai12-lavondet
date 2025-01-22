@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
 import "../App.css"
-import { UserContext } from "../App";
+import { UserContext } from "../context/UserContext";
 
 // Handles logging in with google
 

@@ -1,5 +1,6 @@
 const { OAuth2Client } = require("google-auth-library");
 const User = require("./models/user");
+const Profile = require("./models/profile");
 const socketManager = require("./server-socket");
 
 // create a new OAuth client used to verify google sign-in
@@ -28,6 +29,15 @@ function getOrCreateUser(user) {
       googleid: user.sub,
     });
 
+    const newProfile = new Profile({
+      id: user.sub,
+      name: "name",
+      major: "major",
+      pfp: null
+    });
+
+    newProfile.save()
+
     return newUser.save();
   });
 }
@@ -36,6 +46,7 @@ function login(req, res) {
   verify(req.body.token)
     .then((user) => getOrCreateUser(user))
     .then((user) => {
+
       // persist user in the session
       req.session.user = user;
       res.send(user);

@@ -1,0 +1,76 @@
+/* styling navbar */
+.Navbar-container {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 1% 2%;
+    z-index: 10;
+  }
+
+  /* left side of navbar */
+
+  .Navbar-left {
+    display: flex;
+    margin-left: 3%;
+  }
+
+  .Navbar-left button {
+    font-family: var(--Funnel);
+    font-size: var(--m);
+    margin: 1% 10%;
+    font-weight: var(--regular);
+    border-color: transparent;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 6px 12px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+
+  .Navbar-left button:hover {
+    transform: scale(1.05);
+    background-color: aliceblue;
+  }
+
+  #Navbar-home {
+    font-weight: var(--bold);
+    font-size: var(--l);
+  }
+
+  /* right side of navbar */
+
+  .Navbar-right {
+    display: flex;
+    margin-left: auto;
+    margin-right: 6%;
+    margin-top: auto;
+    margin-bottom: auto;
+    gap: 10%;
+    position: relative;
+  }
+
+  .Navbar-right button {
+    font-family: var(--Funnel);
+    font-size: var(--m);
+    font-weight: var(--regular);
+    border-color: transparent;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-right: 20px;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .Navbar-right button:hover {
+    background-color: aliceblue;
+  }
+
+  .Navbar-right button::after {
+    position: absolute;
+    top: 5%;
+    content: "";
+    height: 90%;
+    background-color: #242424;
+    width: 1px;
+    margin-left: 30px;
+  }

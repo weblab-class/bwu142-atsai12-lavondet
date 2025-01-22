@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import "./App.css";
+import "./Navbar.css";
 import Google from "./pages/Google";
 import Profile from "./Profile";
 

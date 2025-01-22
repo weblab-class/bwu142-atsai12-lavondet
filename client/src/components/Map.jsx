@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
+import "./Map.css";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 
 const containerStyle = { width: "100%", height: "700px" };
@@ -48,6 +48,11 @@ const Map = () => {
     }, marker.timeout);
   };
 
+  const handleCancelMarker = () => {
+    setModalVisible(false);
+    setMarkerInfo("");
+  }
+
 
   const handleMarkerHover = (marker) => {
     setActiveMarker(marker);
@@ -66,16 +71,17 @@ const Map = () => {
       {modalVisible && (
         <div className="modal">
           <h3>Create a New Post</h3>
+          <hr></hr>
           <textarea
-            placeholder="Enter details"
+            placeholder="Add a note"
             value={markerInfo}
             onChange={(e) => setMarkerInfo(e.target.value)}
             rows="4" // Set the number of rows for the textarea (adjust as needed)
             cols="40" // Set the width of the textarea
           />
-          <div>
-            <button onClick={handleSaveMarker}>Save</button>
-            <button onClick={() => setModalVisible(false)}>Cancel</button>
+          <div className="new-post-buttons">
+            <button id="new-post-save" onClick={handleSaveMarker}>Save</button>
+            <button id="new-post-cancel" onClick={handleCancelMarker}>Cancel</button>
           </div>
         </div>
       )}

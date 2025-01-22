@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../utilities.css";
-import "./App.css";
+import "./Profile.css";
 
 const Profile = () => {
   // Initial default values for name and major
@@ -31,10 +30,10 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <div className="profile-pic">
+      {/* <div className="profile-pic">
         <img src="src/public/profile.svg" alt="profile-icon" className="profile-icon" />
         <button id="profile-edit-pfp">Edit</button>
-      </div>
+      </div> */}
 
       {/* Name Section */}
       <div className="profile-category">

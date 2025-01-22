@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../utilities.css";
-import "./App.css";
+import "./Profile.css";
 
 import {get, post} from '../utilities';
 

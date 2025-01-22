@@ -58,16 +58,7 @@ router.get("/name-major", (req, res) => {
   });
 });
 
-router.get("/major", (req, res) => {
-  Profile.findOne({id: req.query.id}).then((profile) => {
-    if (profile && profile.major) {
-      res.send({major: profile.major});
-    } else {
-      console.log('not found')
-      res.send("major");
-    }
-  });
-});
+
 
 router.post("/change-name", (req, res) => {
   const newName = req.body.name;

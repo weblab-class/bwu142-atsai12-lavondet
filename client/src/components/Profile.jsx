@@ -25,14 +25,6 @@ const Profile = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const query = {id: userId};
-  //   get("/api/major", query).then((user) => {
-  //     setUserMajor(user.major);
-  //     setTrigger(true);
-  //   });
-  // }, []);
-
   useEffect(() => {
     setTempName(userName);
     setTempMajor(userMajor);

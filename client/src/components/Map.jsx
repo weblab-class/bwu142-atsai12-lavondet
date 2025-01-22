@@ -71,7 +71,6 @@ const Map = () => {
       {modalVisible && (
         <div className="modal">
           <h3>Create a New Post</h3>
-          <hr></hr>
           <textarea
             placeholder="Add a note"
             value={markerInfo}

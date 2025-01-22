@@ -3,8 +3,8 @@ import "./Profile.css";
 
 const Profile = () => {
   // Initial default values for name and major
-  const [userName, setUserName] = useState("name");
-  const [userMajor, setUserMajor] = useState("major");
+  const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
+  const [userMajor, setUserMajor] = useState(localStorage.getItem("userMajor") || "");
 
   // Handle changes in the name input field
   const handleNameChange = (e) => {
@@ -18,14 +18,12 @@ const Profile = () => {
 
   // Save the new name
   const handleSaveName = () => {
-    // Optionally, save the new value to the database or other storage
-    console.log("Name saved:", userName);
+    localStorage.setItem("userName", userName);
   };
 
   // Save the new major
   const handleSaveMajor = () => {
-    // Optionally, save the new value to the database or other storage
-    console.log("Major saved:", userMajor);
+    localStorage.setItem("userMajor", userMajor);
   };
 
   return (

@@ -1,31 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../utilities.css";
 import "./App.css";
 
+import {get, post} from '../utilities';
+
+import {UserContext} from "./context/UserContext";
+
 const Profile = () => {
   // Initial default values for name and major
+  const {userId, handleLogin, handleLogout} = useContext(UserContext);
+
   const [userName, setUserName] = useState("name");
   const [userMajor, setUserMajor] = useState("major");
+  const [tempName, setTempName] = useState(userName);
+  const[tempMajor, setTempMajor] = useState(userMajor);
+  const [trigger, setTrigger] = useState(false);
+
+  useEffect(() => {
+    const query = {id: userId};
+    get("/api/name-major", query).then((user) => {
+      setUserName(user.name);
+      setUserMajor(user.major);
+      setTrigger(true);
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   const query = {id: userId};
+  //   get("/api/major", query).then((user) => {
+  //     setUserMajor(user.major);
+  //     setTrigger(true);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    setTempName(userName);
+    setTempMajor(userMajor);
+  }, [trigger])
 
   // Handle changes in the name input field
   const handleNameChange = (e) => {
-    setUserName(e.target.value);
+    setTempName(e.target.value)
   };
 
   // Handle changes in the major input field
   const handleMajorChange = (e) => {
-    setUserMajor(e.target.value);
+    setTempMajor(e.target.value);
   };
 
   // Save the new name
   const handleSaveName = () => {
     // Optionally, save the new value to the database or other storage
+    const body = {id: userId, name: tempName};
+    post("/api/change-name", body).then((user) => {
+      setUserName(user.name);
+    });
     console.log("Name saved:", userName);
   };
 
   // Save the new major
   const handleSaveMajor = () => {
     // Optionally, save the new value to the database or other storage
+    const body = {id: userId, major: tempMajor};
+    post("/api/change-major", body).then((user) => {
+      setUserMajor(user.major);
+    });
     console.log("Major saved:", userMajor);
   };
 
@@ -42,7 +81,7 @@ const Profile = () => {
         <div className="input-container">
           <input
             type="text"
-            value={userName}
+            value={tempName}
             onChange={handleNameChange}
             placeholder="Enter your name"
           />
@@ -56,7 +95,7 @@ const Profile = () => {
         <div className="input-container">
           <input
             type="text"
-            value={userMajor}
+            value={tempMajor}
             onChange={handleMajorChange}
             placeholder="Enter your major"
           />

@@ -47,7 +47,6 @@ const Profile = () => {
     post("/api/change-name", body).then((user) => {
       setUserName(user.name);
     });
-    console.log("Name saved:", userName);
   };
 
   // Save the new major
@@ -57,7 +56,6 @@ const Profile = () => {
     post("/api/change-major", body).then((user) => {
       setUserMajor(user.major);
     });
-    console.log("Major saved:", userMajor);
   };
 
   return (

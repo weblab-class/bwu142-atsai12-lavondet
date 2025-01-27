@@ -52,13 +52,43 @@ router.get("/name-major", (req, res) => {
     if (profile && profile.name) {
       res.send({name: profile.name, major: profile.major});
     } else {
-      console.log('not found')
-      res.send("name");
+      res.send({name: "name", major: "major"});
     }
   });
 });
 
+router.get("/find-post", (req, res) => {
+  Post.findOne({id: req.query.id}).then((post) => {
+    if (post) {
+      res.send({exist: true});
+    } else {
+      res.send({exist: false});
+    }
+  })
+})
 
+router.get("/posts", (req, res) => {
+  Post.find({}).then((postData) => {
+    res.send({posts: postData});
+  })
+})
+
+router.post("/post", (req, res) => {
+  const post = new Post({
+    id: req.body.id,
+    lat: req.body.lat,
+    lng: req.body.lng,
+    name: req.body.name,
+    major: req.body.major,
+    info: req.body.info
+  });
+  post.save().then((post) => res.send(post));
+})
+
+router.post("/remove-post", (req, res) => {
+  Post.deleteOne({id: req.body.id})
+  .then((marker) => res.send(marker));
+})
 
 router.post("/change-name", (req, res) => {
   const newName = req.body.name;

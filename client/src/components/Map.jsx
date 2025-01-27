@@ -1,22 +1,61 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./Map.css";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+
+import {get, post} from '../utilities';
+
+import {UserContext} from "./context/UserContext";
 
 const containerStyle = { width: "100%", height: "700px" };
 const center = { lat: 42.3601, lng: -71.0942 };
 
 const Map = () => {
+  const{userId, handleLogin, handleLogout} = useContext(UserContext);
+  const [userName, setUserName] = useState("name");
+  const [userMajor, setUserMajor] = useState("major");
+  const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
   const [markers, setMarkers] = useState([]);
   const [newMarkerPosition, setNewMarkerPosition] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [markerInfo, setMarkerInfo] = useState("");
   const [activeMarker, setActiveMarker] = useState(null);
+  const [postTrigger, setPostTrigger] = useState(0);
   const mapRef = useRef();
 
-  const handleAddButtonClick = () => {
-    setIsAddMode(!isAddMode); // Toggle add mode
-  };
+  useEffect(() => {
+    const query = {id: userId};
+    get("/api/name-major", query).then((user) => {
+      setUserName(user.name);
+      setUserMajor(user.major);
+    });
+  });
+
+  useEffect(() => {
+    const query = {id: userId};
+    get("/api/find-post", query).then((posts) => {
+      setHasMarker(posts.exist);
+    });
+  }, [userId]);
+
+  useEffect(() => {
+    get("/api/posts").then((data) => {
+      setMarkers(data.posts);
+    })
+  }, [postTrigger]);
+
+  const handleButtonClick = () => {
+    if (hasMarker) {
+      const body = {id: userId};
+      post("/api/remove-post", body).then((marker) => {
+        console.log('removed');
+      });
+      setPostTrigger(postTrigger + 1);
+      setHasMarker(false);
+    } else {
+      setIsAddMode(!isAddMode);
+    }
+  }
 
   const handleMapClick = (event) => {
     if (isAddMode) {
@@ -28,24 +67,24 @@ const Map = () => {
   };
 
   const handleSaveMarker = () => {
-    const marker = {
-      ...newMarkerPosition,
-      info: markerInfo,
-      timeout: 10000, // Marker will disappear after 10 seconds (adjust as needed)
-      // set timeout to 10 * 60 * 1000 for 10 min or x6 for 1 hour
+    // adding marker to database
+    const body = {
+      id: userId,
+      lat: newMarkerPosition.lat,
+      lng: newMarkerPosition.lng,
+      name: userName,
+      major: userMajor,
+      info: markerInfo
     };
+    post("/api/post", body).then((marker) => {
+      setMarkers((prevMarkers) => [...prevMarkers, marker]);
+    })
 
-    setMarkers((prevMarkers) => [...prevMarkers, marker]);
+    // reseting new marker info
     setModalVisible(false);
     setNewMarkerPosition(null);
     setMarkerInfo("");
-
-    // Set a timeout to remove the marker after `timeout` duration
-    setTimeout(() => {
-      setMarkers((prevMarkers) =>
-        prevMarkers.filter((m) => m !== marker)
-      );
-    }, marker.timeout);
+    setHasMarker(true);
   };
 
   const handleCancelMarker = () => {
@@ -64,8 +103,8 @@ const Map = () => {
 
   return (
     <div>
-      <button onClick={handleAddButtonClick} className="Add-post">
-        {isAddMode ? "Exit" : "Add"}
+      <button onClick={handleButtonClick} className="Add-post">
+        {isAddMode ? "Exit" : (hasMarker ? "Remove": "Add")}
       </button>
 
       {modalVisible && (

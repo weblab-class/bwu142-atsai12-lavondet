@@ -80,6 +80,7 @@ router.post("/post", (req, res) => {
     lng: req.body.lng,
     name: req.body.name,
     major: req.body.major,
+    kerb: req.body.kerb,
     info: req.body.info
   });
   post.save().then((post) => res.send(post));

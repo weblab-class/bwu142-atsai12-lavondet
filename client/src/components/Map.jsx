@@ -6,7 +6,7 @@ import { get, post } from "../utilities";
 
 import { UserContext } from "./context/UserContext";
 
-const containerStyle = { width: "100%", height: "700px" };
+const containerStyle = { width: "100vw", height: "100vh" };
 const center = { lat: 42.3601, lng: -71.0942 };
 
 const Map = () => {

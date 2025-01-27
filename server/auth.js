@@ -31,7 +31,7 @@ function getOrCreateUser(user) {
 
     const newProfile = new Profile({
       id: user.sub,
-      name: "name",
+      name: user.name,
       major: "major",
       pfp: null
     });

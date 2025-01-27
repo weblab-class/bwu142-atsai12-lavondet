@@ -33,6 +33,7 @@ function getOrCreateUser(user) {
       id: user.sub,
       name: user.name,
       major: "major",
+      kerb: "kerberos",
       pfp: user.picture
     });
 

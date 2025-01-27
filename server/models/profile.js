@@ -4,6 +4,7 @@ const ProfileSchema = new mongoose.Schema({
   id: String,
   name: String,
   major: String,
+  kerb: String,
   pfp: String,
 });
 

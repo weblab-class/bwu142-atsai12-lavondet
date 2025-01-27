@@ -13,6 +13,7 @@ const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [userName, setUserName] = useState("name");
   const [userMajor, setUserMajor] = useState("major");
+  const [userKerb, setUserKerb] = useState("kerberos");
   const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
   const [markers, setMarkers] = useState([]);
@@ -25,9 +26,10 @@ const Map = () => {
 
   useEffect(() => {
     const query = { id: userId };
-    get("/api/name-major", query).then((user) => {
+    get("/api/name-major-kerb", query).then((user) => {
       setUserName(user.name);
       setUserMajor(user.major);
+      setUserKerb(user.kerb);
     });
   });
 
@@ -74,6 +76,7 @@ const Map = () => {
       lng: newMarkerPosition.lng,
       name: userName,
       major: userMajor,
+      kerb: userKerb,
       info: markerInfo,
     };
     post("/api/post", body).then((marker) => {

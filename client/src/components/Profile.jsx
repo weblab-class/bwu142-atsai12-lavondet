@@ -12,15 +12,18 @@ const Profile = () => {
 
   const [userName, setUserName] = useState("name");
   const [userMajor, setUserMajor] = useState("major");
+  const [userKerb, setUserKerb] = useState("kerberos");
   const [tempName, setTempName] = useState(userName);
   const[tempMajor, setTempMajor] = useState(userMajor);
+  const [tempKerb, setTempKerb] = useState(userKerb);
   const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     const query = {id: userId};
-    get("/api/name-major", query).then((user) => {
+    get("/api/name-major-kerb", query).then((user) => {
       setUserName(user.name);
       setUserMajor(user.major);
+      setUserKerb(user.kerb);
       setTrigger(true);
     });
   }, []);
@@ -28,6 +31,7 @@ const Profile = () => {
   useEffect(() => {
     setTempName(userName);
     setTempMajor(userMajor);
+    setTempKerb(userKerb);
   }, [trigger])
 
   // Handle changes in the name input field
@@ -39,6 +43,10 @@ const Profile = () => {
   const handleMajorChange = (e) => {
     setTempMajor(e.target.value);
   };
+
+  const handleKerbChange = (e) => {
+    setTempKerb(e.target.value);
+  }
 
   // Save the new name
   const handleSaveName = () => {
@@ -55,6 +63,13 @@ const Profile = () => {
     const body = {id: userId, major: tempMajor};
     post("/api/change-major", body).then((user) => {
       setUserMajor(user.major);
+    });
+  };
+
+  const handleSaveKerb = () =>{
+    const body = {id: userId, kerb: tempKerb};
+    post("/api/change-kerb", body).then((user) => {
+      setUserKerb(user.kerb);
     });
   };
 
@@ -90,6 +105,20 @@ const Profile = () => {
             placeholder="Enter your major"
           />
           <button onClick={handleSaveMajor} className="save-button">Save</button>
+        </div>
+      </div>
+
+      {/* Kerb Section */}
+      <div className="profile-category">
+        <p className="profile-element">Kerberos ID</p>
+        <div className="input-container">
+          <input
+            type="text"
+            value={tempKerb}
+            onChange={handleKerbChange}
+            placeholder="Enter your MIT kerb"
+          />
+          <button onClick={handleSaveKerb} className="save-button">Save</button>
         </div>
       </div>
     </div>

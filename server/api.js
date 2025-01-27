@@ -47,10 +47,10 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.get("/name-major", (req, res) => {
+router.get("/name-major-kerb", (req, res) => {
   Profile.findOne({id: req.query.id}).then((profile) => {
     if (profile && profile.name) {
-      res.send({name: profile.name, major: profile.major});
+      res.send({name: profile.name, major: profile.major, kerb: profile.kerb});
     } else {
       res.send({name: "name", major: "major"});
     }
@@ -103,8 +103,16 @@ router.post("/change-major", (req, res) => {
   Profile.findOne({id: req.body.id}).then((profile) => {
     profile.major = newMajor;
     profile.save();
-  }).then(res.send({major:newMajor}));
+  }).then(res.send({major: newMajor}));
 });
+
+router.post("/change-kerb", (req, res) => {
+  const newKerb = req.body.kerb;
+  Profile.findOne({id: req.body.id}).then((profile) => {
+    profile.kerb = newKerb;
+    profile.save();
+  }).then(res.send({kerb: newKerb}));
+})
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

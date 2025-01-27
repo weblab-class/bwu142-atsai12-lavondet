@@ -29,7 +29,7 @@ const Map = () => {
       setUserName(user.name);
       setUserMajor(user.major);
     });
-  });
+  }, [userId]);
 
   useEffect(() => {
     const query = { id: userId };
@@ -67,7 +67,6 @@ const Map = () => {
   };
 
   const handleSaveMarker = () => {
-    // adding marker to database
     const body = {
       id: userId,
       lat: newMarkerPosition.lat,
@@ -80,7 +79,6 @@ const Map = () => {
       setMarkers((prevMarkers) => [...prevMarkers, marker]);
     });
 
-    // reseting new marker info
     setModalVisible(false);
     setNewMarkerPosition(null);
     setMarkerInfo("");
@@ -92,12 +90,12 @@ const Map = () => {
     setMarkerInfo("");
   };
 
-  const handleMarkerHover = (marker) => {
-    setActiveMarker(marker);
+  const handleMarkerClick = (marker) => {
+    setActiveMarker(marker); // Set the clicked marker as active
   };
 
-  const handleMarkerHoverOut = () => {
-    setActiveMarker(null);
+  const handleCloseInfoWindow = () => {
+    setActiveMarker(null); // Close the info window when clicked on the close button
   };
 
   return (
@@ -115,8 +113,8 @@ const Map = () => {
             placeholder="Add a note"
             value={markerInfo}
             onChange={(e) => setMarkerInfo(e.target.value)}
-            rows="4" // Set the number of rows for the textarea (adjust as needed)
-            cols="40" // Set the width of the textarea
+            rows="4"
+            cols="40"
           />
           <div className="new-post-buttons">
             <button id="new-post-save" onClick={handleSaveMarker}>
@@ -143,15 +141,14 @@ const Map = () => {
               <Marker
                 key={index}
                 position={{ lat: marker.lat, lng: marker.lng }}
-                onMouseOver={() => handleMarkerHover(marker)}
-                onMouseOut={handleMarkerHoverOut}
+                onClick={() => handleMarkerClick(marker)} // Open info window on click
               />
             ))}
 
             {activeMarker && (
               <InfoWindow
                 position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
-                // onCloseClick={handleMarkerHoverOut}
+                onCloseClick={handleCloseInfoWindow} // Close info window on "close click"
               >
                 <div
                   className="info-window-content"
@@ -164,9 +161,18 @@ const Map = () => {
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
-                  <p> <span className="Map-marker-hover">Username: </span>{activeMarker.name}</p>
-                  <p><span className="Map-marker-hover">Major / course: </span>{activeMarker.major}</p>
-                  <p><span className="Map-marker-hover">Note: </span>{activeMarker.info}</p>
+                  <p>
+                    <span className="Map-marker-hover">Username: </span>
+                    {activeMarker.name}
+                  </p>
+                  <p>
+                    <span className="Map-marker-hover">Major / course: </span>
+                    {activeMarker.major}
+                  </p>
+                  <p>
+                    <span className="Map-marker-hover">Note: </span>
+                    {activeMarker.info}
+                  </p>
                 </div>
               </InfoWindow>
             )}

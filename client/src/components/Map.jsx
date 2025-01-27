@@ -31,7 +31,7 @@ const Map = () => {
       setUserMajor(user.major);
       setUserKerb(user.kerb);
     });
-  }, [userId]);
+  });
 
   useEffect(() => {
     const query = { id: userId };

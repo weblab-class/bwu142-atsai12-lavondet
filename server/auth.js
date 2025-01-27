@@ -33,7 +33,7 @@ function getOrCreateUser(user) {
       id: user.sub,
       name: user.name,
       major: "major",
-      pfp: null
+      pfp: user.picture
     });
 
     newProfile.save()

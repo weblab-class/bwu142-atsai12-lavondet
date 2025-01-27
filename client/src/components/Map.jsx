@@ -157,15 +157,16 @@ const Map = () => {
                   className="info-window-content"
                   style={{
                     width: "250px",
-                    height: "150px",
+                    maxHeight: "150px",
                     padding: "10px",
                     backgroundColor: "white",
                     borderRadius: "5px",
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
-                  <h4>Note:</h4>
-                  <p>{activeMarker.info}</p>
+                  <p> <span className="Map-marker-hover">Username: </span>{activeMarker.name}</p>
+                  <p><span className="Map-marker-hover">Major / course: </span>{activeMarker.major}</p>
+                  <p><span className="Map-marker-hover">Note: </span>{activeMarker.info}</p>
                 </div>
               </InfoWindow>
             )}

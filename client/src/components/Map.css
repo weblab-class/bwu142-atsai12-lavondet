@@ -87,3 +87,8 @@
 #new-post-cancel:hover {
   filter: brightness(1.2);
 }
+
+
+.Map-marker-hover {
+  font-weight: bold;
+}

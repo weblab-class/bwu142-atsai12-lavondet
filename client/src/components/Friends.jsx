@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { get, post } from "../utilities";
+import { UserContext } from "./context/UserContext";
 import "../utilities.css";
 import "./Friends.css";
 
@@ -19,7 +21,3 @@ const Friends = () => {
 };
 
 export default Friends;
-import React, {useState, useEffect, useContext} from "react";
-import { get, post } from "../utilities";
-import { UserContext } from "./context/UserContext";
-

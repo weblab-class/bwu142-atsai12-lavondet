@@ -135,7 +135,11 @@ router.post("/change-kerb", (req, res) => {
 
 router.get("/friends", (req, res) => {
   Profile.findOne({id: req.query.id}).then((profile) => {
-    res.send({friends: profile.friends});
+    if (Array.isArray(profile.friends) && profile.friends.length > 0) {
+      res.send({friends: profile.friends});
+    } else {
+      res.send({friends: []});
+    }
   });
 });
 
@@ -168,7 +172,11 @@ router.get("/profiles", (req, res) => {
 
 router.get("/incoming", (req, res) => {
   Profile.findOne({id: req.query.userId}).then((profile) => {
-    res.send({incoming: profile.incoming});
+    if (Array.isArray(profile.incoming) && profile.incoming.length > 0) {
+      res.send({incoming: profile.incoming});
+    } else {
+      res.send({incoming: []});
+    }
   });
 });
 

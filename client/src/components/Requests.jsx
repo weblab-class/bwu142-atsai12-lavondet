@@ -10,7 +10,7 @@ const Requests = (props) => {
 
     // for incoming friend requests
     useEffect(() => {
-        query = {id: userId};
+        const query = {id: userId};
         get("/api/incoming", query).then((user) => {
             setIncomingIds(user.incoming);
         });

@@ -7,7 +7,15 @@ import {get, post} from '../utilities';
 import {UserContext} from "./context/UserContext";
 
 const Friends = () => {
+    const { userId, handleLogin, handleLogout } = useContext(UserContext);
+    const [ids, setIds] = useState([]);
 
+    useEffect(() => {
+        query = {id: userId};
+        get("/api/friends", query).then((user) => {
+            setIds(user.friends);
+        });
+    })
 
     return (
         <div className="friends-container">

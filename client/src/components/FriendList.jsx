@@ -1,6 +1,5 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import { get, post } from "../utilities";
-import { UserContext } from "./context/UserContext";
 
 const FriendList = (props) => {
     const [list, setList] = useState([]);
@@ -18,7 +17,7 @@ const FriendList = (props) => {
         }
 
         fetchFriends();
-    }, []);
+    }, [props.ids]);
 
 } 
 

@@ -133,6 +133,12 @@ router.post("/change-kerb", (req, res) => {
   });
 })
 
+router.get("friends", (req, res) => {
+  Profile.findOne({id: req.query.id}).then((profile) => {
+    res.send({friends: profile.friends});
+  });
+});
+
 router.get("friend", (req, res) => {
   const friend_id = req.query.id;
   Profile.findOne({id: friend_id}).then((profile) => {

@@ -113,7 +113,7 @@ const Map = () => {
         <div className="modal">
           <h3>Create a New Post</h3>
           <textarea
-            placeholder="Add a note"
+            placeholder="Describe your location/class/assignment etc."
             value={markerInfo}
             onChange={(e) => setMarkerInfo(e.target.value)}
             rows="4"

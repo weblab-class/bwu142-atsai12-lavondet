@@ -97,6 +97,12 @@ router.post("/change-name", (req, res) => {
     profile.name = newName;
     profile.save();
   }).then(res.send({name:newName}));
+  Post.findOne({id: req.body.id}).then((post) => {
+    if (post) {
+      post.name = newName;
+      post.save();
+    }
+  });
 });
 
 router.post("/change-major", (req, res) => {
@@ -105,6 +111,12 @@ router.post("/change-major", (req, res) => {
     profile.major = newMajor;
     profile.save();
   }).then(res.send({major: newMajor}));
+  Post.findOne({id: req.body.id}).then((post) => {
+    if (post) {
+      post.major = newMajor;
+      post.save();
+    }
+  });
 });
 
 router.post("/change-kerb", (req, res) => {
@@ -113,6 +125,12 @@ router.post("/change-kerb", (req, res) => {
     profile.kerb = newKerb;
     profile.save();
   }).then(res.send({kerb: newKerb}));
+  Post.findOne({id: req.body.id}).then((post) => {
+    if (post) {
+      post.kerb = newKerb;
+      post.save();
+    }
+  });
 })
 
 // anything else falls to this "not found" case

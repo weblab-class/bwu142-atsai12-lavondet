@@ -83,12 +83,18 @@ router.post("/post", (req, res) => {
     kerb: req.body.kerb,
     info: req.body.info
   });
-  post.save().then((post) => res.send(post));
+  post.save().then((post) => 
+  { res.send(post);
+    socketManager.getIo.emit("new post", post);
+});
 })
 
 router.post("/remove-post", (req, res) => {
   Post.deleteOne({id: req.body.id})
-  .then((marker) => res.send(marker));
+  .then((marker) => {
+    res.send(marker);
+    socketManager.getIo.emit("change post");
+  });
 })
 
 router.post("/change-name", (req, res) => {
@@ -101,6 +107,7 @@ router.post("/change-name", (req, res) => {
     if (post) {
       post.name = newName;
       post.save();
+      socketManager.getIo.emit("change post");
     }
   });
 });
@@ -115,6 +122,7 @@ router.post("/change-major", (req, res) => {
     if (post) {
       post.major = newMajor;
       post.save();
+      socketManager.getIo.emit("change post");
     }
   });
 });
@@ -129,6 +137,7 @@ router.post("/change-kerb", (req, res) => {
     if (post) {
       post.kerb = newKerb;
       post.save();
+      socketManager.getIo.emit("change post");
     }
   });
 })

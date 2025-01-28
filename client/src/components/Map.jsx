@@ -4,6 +4,7 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/ap
 import Filter from "./Filter";
 
 import { get, post } from "../utilities";
+import { socket } from "../client-socket";
 
 import { UserContext } from "./context/UserContext";
 
@@ -47,6 +48,30 @@ const Map = () => {
       setMarkers(data.posts);
     });
   }, [postTrigger]);
+
+  const addPost = (post) => {
+    setMarkers([...markers, post]);
+  };
+
+  const updatePosts = () => {
+    get("/api/posts").then((data) => {
+      setMarkers(data.posts);
+    });
+  }
+
+  useEffect(() => {
+    socket.on("new post", addPost);
+    return () => {
+      socket.off("new post", addPost);
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.on("change post", updatePosts);
+    return () => {
+      socket.off("change post", updatePosts);
+    }
+  })
 
   const handleButtonClick = () => {
     if (hasMarker) {

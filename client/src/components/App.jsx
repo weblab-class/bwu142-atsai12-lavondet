@@ -7,6 +7,7 @@ import { get, post } from "../utilities";
 import Map from "./Map"; // Import Google Maps component
 
 import { UserContext } from "./context/UserContext";
+import { ProfileContext } from "./context/ProfileContext";
 
 /**
  * Define the "App" component
@@ -20,6 +21,16 @@ const App = () => {
         // they are registed in the database, and currently logged in.
         setUserId(user.googleid);
       }
+    });
+  }, []);
+
+  useEffect(() => {
+    const query = { id: userId };
+    get("/api/name-major-kerb", query).then((user) => {
+      setUserName(user.name);
+      setUserMajor(user.major);
+      setUserKerb(user.kerb);
+      setTrigger(true);
     });
   }, []);
 

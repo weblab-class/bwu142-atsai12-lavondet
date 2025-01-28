@@ -15,7 +15,7 @@ const Friends = () => {
   const [active, setActive] = useState("friends"); // "left" is initially active
 
   useEffect(() => {
-    query = { id: userId };
+    const query = { id: userId };
     get("/api/friends", query).then((user) => {
       setIds(user.friends);
     });

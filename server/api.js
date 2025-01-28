@@ -133,6 +133,27 @@ router.post("/change-kerb", (req, res) => {
   });
 })
 
+router.get("friend", (req, res) => {
+  const friend_id = req.query.id;
+  Profile.findOne({id: friend_id}).then((profile) => {
+    Post.findOne({id: friend_id}).then((post) => {
+      if (post) {
+        const friend = {name: profile.name, 
+          major: profile.major,
+          pfp: profile.pfp,
+          kerb: profile.kerb,
+          info: post.info};
+      } else {
+        const friend = {name: profile.name, 
+          major: profile.major,
+          pfp: profile.pfp,
+          kerb: profile.kerb};
+      }
+      res.send(friend);
+    })
+  }) 
+})
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

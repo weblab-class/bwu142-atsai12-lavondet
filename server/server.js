@@ -34,9 +34,6 @@ const auth = require("./auth");
 // socket stuff
 const socketManager = require("./server-socket");
 
-// Server configuration below
-// TODO change connection URL after setting up your team database
-const mongoConnectionURL = "mongodb+srv://avondet2005:9jeZsZ6mF3qPEi4T@well-done.i7nsb.mongodb.net/?retryWrites=true&w=majority&appName=Well-Done";
 // TODO change database name to the name you chose
 const databaseName = "Well-Done";
 
@@ -45,10 +42,10 @@ mongoose.set("strictQuery", false);
 
 // connect to mongodb
 mongoose
-  .connect(mongoConnectionURL, {
+  .connect(process.env.MONGO_SRV, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: databaseName,
+    dbName: process.env.DATABASE_NAME,
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));

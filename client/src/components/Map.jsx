@@ -131,7 +131,7 @@ const Map = () => {
       )}
 
       <div style={{ position: "relative", cursor: isAddMode ? "crosshair" : "default" }}>
-        <LoadScript googleMapsApiKey="AIzaSyDI1Zc7mz5G7f7tGbkqR79UjD328mRIgkg">
+        <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
           <GoogleMap
             ref={mapRef}
             options={{ disableDefaultUI: true }}

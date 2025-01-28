@@ -34,7 +34,10 @@ function getOrCreateUser(user) {
       name: user.name,
       major: "major",
       kerb: "kerberos",
-      pfp: user.picture
+      pfp: user.picture,
+      friends: [],
+      incoming: [],
+      sent: []
     });
 
     newProfile.save()

@@ -6,6 +6,9 @@ const ProfileSchema = new mongoose.Schema({
   major: String,
   kerb: String,
   pfp: String,
+  friends: [String],
+  incoming: [String],
+  sent: [String]
 });
 
 // compile model from schema

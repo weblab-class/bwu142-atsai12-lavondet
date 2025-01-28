@@ -172,7 +172,7 @@ router.get("/profiles", (req, res) => {
 
 router.get("/incoming", (req, res) => {
   Profile.findOne({id: req.query.id}).then((profile) => {
-    if (profile && Array.isArray(profile.incoming) && profile.incoming.length > 0) {
+    if (Array.isArray(profile.incoming) && profile.incoming.length > 0) {
       res.send({incoming: profile.incoming});
     } else {
       res.send({incoming: []});

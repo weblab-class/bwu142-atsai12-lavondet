@@ -34,9 +34,6 @@ const auth = require("./auth");
 // socket stuff
 const socketManager = require("./server-socket");
 
-// TODO change database name to the name you chose
-const databaseName = "Well-Done";
-
 // mongoose 7 warning
 mongoose.set("strictQuery", false);
 

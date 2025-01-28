@@ -2,24 +2,25 @@ import React, { useState, useEffect, useContext } from "react";
 import "../utilities.css";
 import "./Profile.css";
 
-import {get, post} from '../utilities';
+import { get, post } from "../utilities";
 
-import {UserContext} from "./context/UserContext";
+import { UserContext } from "./context/UserContext";
 
-const Profile = () => {
+
+const Profile = ({ onClose }) => {
   // Initial default values for name and major
-  const {userId, handleLogin, handleLogout} = useContext(UserContext);
+  const { userId, handleLogin, handleLogout } = useContext(UserContext);
 
   const [userName, setUserName] = useState("name");
   const [userMajor, setUserMajor] = useState("major");
   const [userKerb, setUserKerb] = useState("kerberos");
   const [tempName, setTempName] = useState(userName);
-  const[tempMajor, setTempMajor] = useState(userMajor);
+  const [tempMajor, setTempMajor] = useState(userMajor);
   const [tempKerb, setTempKerb] = useState(userKerb);
   const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
-    const query = {id: userId};
+    const query = { id: userId };
     get("/api/name-major-kerb", query).then((user) => {
       setUserName(user.name);
       setUserMajor(user.major);
@@ -32,11 +33,11 @@ const Profile = () => {
     setTempName(userName);
     setTempMajor(userMajor);
     setTempKerb(userKerb);
-  }, [trigger])
+  }, [trigger]);
 
   // Handle changes in the name input field
   const handleNameChange = (e) => {
-    setTempName(e.target.value)
+    setTempName(e.target.value);
   };
 
   // Handle changes in the major input field
@@ -46,12 +47,12 @@ const Profile = () => {
 
   const handleKerbChange = (e) => {
     setTempKerb(e.target.value);
-  }
+  };
 
   // Save the new name
   const handleSaveName = () => {
     // Optionally, save the new value to the database or other storage
-    const body = {id: userId, name: tempName};
+    const body = { id: userId, name: tempName };
     post("/api/change-name", body).then((user) => {
       setUserName(user.name);
     });
@@ -60,14 +61,14 @@ const Profile = () => {
   // Save the new major
   const handleSaveMajor = () => {
     // Optionally, save the new value to the database or other storage
-    const body = {id: userId, major: tempMajor};
+    const body = { id: userId, major: tempMajor };
     post("/api/change-major", body).then((user) => {
       setUserMajor(user.major);
     });
   };
 
-  const handleSaveKerb = () =>{
-    const body = {id: userId, kerb: tempKerb};
+  const handleSaveKerb = () => {
+    const body = { id: userId, kerb: tempKerb };
     post("/api/change-kerb", body).then((user) => {
       setUserKerb(user.kerb);
     });
@@ -80,7 +81,11 @@ const Profile = () => {
         <button id="profile-edit-pfp">Edit</button>
       </div> */}
 
+      <button onClick={onClose} className="close-button">
+        <img src="/src/public/close.svg" alt="Close" />
+      </button>
       {/* Name Section */}
+
       <div className="profile-category">
         <p className="profile-element">Name</p>
         <div className="input-container">
@@ -90,7 +95,9 @@ const Profile = () => {
             onChange={handleNameChange}
             placeholder="Enter your name"
           />
-          <button onClick={handleSaveName} className="save-button">Save</button>
+          <button onClick={handleSaveName} className="save-button">
+            Save
+          </button>
         </div>
       </div>
 
@@ -104,7 +111,9 @@ const Profile = () => {
             onChange={handleMajorChange}
             placeholder="Enter your major"
           />
-          <button onClick={handleSaveMajor} className="save-button">Save</button>
+          <button onClick={handleSaveMajor} className="save-button">
+            Save
+          </button>
         </div>
       </div>
 
@@ -118,7 +127,9 @@ const Profile = () => {
             onChange={handleKerbChange}
             placeholder="Enter your MIT kerb"
           />
-          <button onClick={handleSaveKerb} className="save-button">Save</button>
+          <button onClick={handleSaveKerb} className="save-button">
+            Save
+          </button>
         </div>
       </div>
     </div>

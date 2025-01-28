@@ -3,12 +3,14 @@ import "./Navbar.css";
 import Google from "./pages/Google";
 import Profile from "./Profile";
 import Filter from "./Filter";
+import Friends from "./Friends";
 import { UserContext } from "./context/UserContext";
 
 const Navbar = () => {
-  const [showProfile, setShowProfile] = useState(false);
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [showFilter, setShowFilter] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
 
   const toggleProfile = () => {
     setShowProfile(!showProfile);
@@ -16,7 +18,15 @@ const Navbar = () => {
 
   const toggleFilter = () => {
     setShowFilter(!showFilter);
-  }
+  };
+
+  const toggleFriends = () => {
+    setShowFriends(!showFriends);
+  };
+
+  const closeProfile = () => {
+    setShowProfile(false); // Set showProfile to false to hide the profile
+  };
 
   return (
     <>
@@ -24,7 +34,7 @@ const Navbar = () => {
         <div className="Navbar-left">
           <button id="Navbar-home">Home</button>
           <button onClick={toggleFilter}>Filter</button>
-          {userId ? <button>Friends</button> : null}
+          {userId ? <button onClick={toggleFriends}>Friends</button> : null}
         </div>
         <div className="Navbar-right">
           {userId ? <button onClick={toggleProfile}>Profile</button> : null}
@@ -32,8 +42,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {showProfile && <Profile />}
+      {showProfile && <Profile onClose={closeProfile}/>}
       {showFilter && <Filter />}
+      {showFriends && <Friends />}
     </>
   );
 };

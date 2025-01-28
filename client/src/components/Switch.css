@@ -1,0 +1,33 @@
+/* Container styling for the pill shape */
+.friends-container {
+  position: absolute;
+}
+
+.switch-container {
+  position: relative;
+  left: 50%;
+  margin-top: 3%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 200px;
+  border-radius: 50px; /* Creates the pill shape */
+  overflow: hidden; /* Ensures no content overflows the pill */
+  border: 1px solid #ccc; /* Adds a border around the pill */
+}
+
+/* Button styling */
+.switch-button {
+  flex: 1; /* Makes both buttons take up equal space */
+  padding: 10px; /* Adds padding inside the buttons */
+  font-size: 12px; /* Text size for the buttons */
+  border: none; /* Removes default button borders */
+  background-color: transparent; /* Default background is transparent */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Styling for the active button */
+.switch-button.active {
+  background-color: #007bff; /* Blue background for active button */
+  color: white; /* White text for the active button */
+}

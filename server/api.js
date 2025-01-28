@@ -160,6 +160,18 @@ router.get("friend", (req, res) => {
   }) 
 })
 
+router.get("/profiles", (req, res) => {
+  Profile.find({}).then((profiles) => {
+    res.send({users: profiles});
+  });
+});
+
+router.get("/incoming", (req, res) => {
+  Profile.findOne({id: req.query.userId}).then((profile) => {
+    res.send({incoming: profile.incoming});
+  });
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

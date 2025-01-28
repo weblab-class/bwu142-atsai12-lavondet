@@ -8,16 +8,17 @@ import { get, post } from "../utilities";
 import { UserContext } from "./context/UserContext";
 
 const Friends = () => {
-    const { userId, handleLogin, handleLogout } = useContext(UserContext);
-    const [ids, setIds] = useState([]);
+  const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  const [ids, setIds] = useState([]);
   const [active, setActive] = useState("left"); // "left" is initially active
 
-    useEffect(() => {
-        query = {id: userId};
-        get("/api/friends", query).then((user) => {
-            setIds(user.friends);
-        });
-    })
+  useEffect(() => {
+    query = { id: userId };
+    get("/api/friends", query).then((user) => {
+      setIds(user.friends);
+    });
+  });
+
   const toggleActive = (side) => {
     setActive(side); // Update the active button
   };

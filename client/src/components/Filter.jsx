@@ -6,9 +6,17 @@ import { get, post } from "../utilities";
 
 import { UserContext } from "./context/UserContext";
 
-const Filter = () => {
+const Filter = (props) => {
+  const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [customKeyword, setCustomKeyword] = useState("");
   const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    const query = { id: userId };
+    get("/api/friends", query).then((user) => {
+      setIds(user.friends);
+    });
+  });
 
   const handleToggle = (option) => {
     if (selected === option) {
@@ -17,6 +25,19 @@ const Filter = () => {
       setSelected(option); // Select the option
     }
   };
+
+  // useEffect(() =>{
+  //   if (selected ===  "friends") {
+  //     console.log("friends");
+  //     props.setFilteredMarkers(props.all_markers.filter());
+  //   } else if (selected === "major") {
+  //     console.log("major");
+  //   } else if (selected === "custom") {
+  //     console.log("custom");
+  //   } else {
+  //     props.setFilteredMarkers(props.all_markers);
+  //   }
+  // }, [selected, customKeyword]);
 
   return (
     <div className="filter-container">

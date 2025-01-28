@@ -165,14 +165,14 @@ router.get("/friend", (req, res) => {
 })
 
 router.get("/profiles", (req, res) => {
-  Profile.find({}).then((profiles) => {
+  Profile.find({}).select('name major kerb pfp').then((profiles) => {
     res.send({users: profiles});
   });
 });
 
 router.get("/incoming", (req, res) => {
-  Profile.findOne({id: req.query.userId}).then((profile) => {
-    if (Array.isArray(profile.incoming) && profile.incoming.length > 0) {
+  Profile.findOne({id: req.query.id}).then((profile) => {
+    if (profile && Array.isArray(profile.incoming) && profile.incoming.length > 0) {
       res.send({incoming: profile.incoming});
     } else {
       res.send({incoming: []});

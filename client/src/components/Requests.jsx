@@ -36,8 +36,10 @@ const Requests = (props) => {
             const profiles = data.users;
 
             // Filter out profiles with ids in friends or requests
-            const filteredProfiles = profiles.filter(
-                (profile) => !props.ids.includes(profile.id) && !incomingIds.includes(profile.id)
+            const filteredProfiles = profiles.filter((profile) => 
+  (!props.ids || props.ids.length === 0 || !props.ids.includes(profile.id)) &&
+  (!incomingIds || incomingIds.length === 0 || !incomingIds.includes(profile.id)) &&
+  !(userId === profile.id)
             );
 
             // Shuffle the filtered profiles and select up to 10

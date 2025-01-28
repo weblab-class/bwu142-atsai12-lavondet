@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { get, post } from "../utilities";
 
 const FriendList = (props) => {
   const [list, setList] = useState([]);
 
   const listFriends = (list) => {
+    if (list.length === 0) {
+      return <></>;
+    }
     return list.map((friend) => (
       <div key={friend.kerb} className="friend-card">
         <img src={friend.pfp} alt="profile" className="friend-pfp" />
@@ -18,18 +21,19 @@ const FriendList = (props) => {
   };
 
   useEffect(() => {
-    async function fetchFriends() {
-      const friends = await Promise.all(
-        props.ids.map(async (friend_id) => {
-          const query = { id: friend_id };
-          const friend = await get("/api/friend", body);
-          return friend;
-        })
-      );
-      setList(friends);
+    if (props.ids && props.ids.length > 0) {
+      async function fetchFriends() {
+        const friends = await Promise.all(
+          props.ids.map(async (friend_id) => {
+            const query = { id: friend_id };
+            const friend = await get("/api/friend", body);
+            return friend;
+          })
+        );
+        setList(friends);
+      }
+      fetchFriends();
     }
-
-    fetchFriends();
   }, []);
 
   return (

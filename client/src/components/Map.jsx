@@ -17,6 +17,7 @@ const Map = () => {
   const [userKerb, setUserKerb] = useState("kerberos");
   const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
+  const [filteredMarkers, setFilteredMarkers] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [newMarkerPosition, setNewMarkerPosition] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -182,6 +183,7 @@ const Map = () => {
             )}
           </GoogleMap>
         </LoadScript>
+        {/* <Filter all_markers={markers} set_filtered={setFilteredMarkers} /> */}
       </div>
     </div>
   );

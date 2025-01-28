@@ -1,51 +1,57 @@
 .filter-container {
-    position: absolute;
-    top: 12%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px; /* Increase width to fit the input */
-    height: auto;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    padding: 0 20px 20px 20px;
-  }
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px; /* Increased width for more space */
+  height: auto;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  padding: 0 20px 20px 20px;
+}
 
-  .filter-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-  }
+.filter-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
 
-  .filter-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    width: 100%; /* Ensure the filter options fill the container */
-  }
+.filter-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%; /* Ensure the filter options fill the container */
+}
 
-  .filter-element {
-    display: flex;
-    align-items: center;
-  }
+.filter-element {
+  display: flex;
+  align-items: center;
+}
 
-  input[type="radio"] {
-    margin-right: 10px;
-  }
+input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
 
-  .custom-filter {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* Allow this element to take up remaining space */
-  }
+.custom-filter {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Allow this element to take up remaining space */
+}
 
-  .custom-input {
-    margin-left: 5px;
-    padding: 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 10px;
-    width: 140px; 
-  }
+.custom-input {
+  margin-left: 5px;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 10px;
+  width: 140px;
+}
+
+.custom-input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}

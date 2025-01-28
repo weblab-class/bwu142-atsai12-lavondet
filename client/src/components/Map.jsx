@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import "./Map.css";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import Filter from "./Filter";
 
 import { get, post } from "../utilities";
 

@@ -14,6 +14,10 @@ import { ProfileContext } from "./context/ProfileContext";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [userName, setUserName] = useState("name");
+  const [userMajor, setUserMajor] = useState("major");
+  const [userKerb, setUserKerb] = useState("kerberos");
+  const [userPfp, setUserPfp] = useState(null);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -26,13 +30,13 @@ const App = () => {
 
   useEffect(() => {
     const query = { id: userId };
-    get("/api/name-major-kerb", query).then((user) => {
+    get("/api/profile", query).then((user) => {
       setUserName(user.name);
       setUserMajor(user.major);
       setUserKerb(user.kerb);
-      setTrigger(true);
+      setUserPfp(user.pfp);
     });
-  }, []);
+  }, [userId]);
 
   const handleLogin = (credentialResponse) => {
     const userToken = credentialResponse.credential;
@@ -55,13 +59,25 @@ const App = () => {
     handleLogout,
   };
 
+  const profileValue = {
+    userName,
+    userMajor,
+    userKerb,
+    userPfp,
+    setUserName, 
+    setUserMajor,
+    setUserKerb
+  };
+
   return (
-    <UserContext.Provider value={authContextValue}>
-      <div>
-      <Outlet />
-        <Map />  {/* Add the Google Maps component */}
-      </div>
-    </UserContext.Provider>
+    <ProfileContext.Provider value={profileValue}>
+      <UserContext.Provider value={authContextValue}>
+        <div>
+          <Outlet/>
+          <Map /> {/* Add the Google Maps component */}
+        </div>
+      </UserContext.Provider>
+    </ProfileContext.Provider>
   );
 };
 

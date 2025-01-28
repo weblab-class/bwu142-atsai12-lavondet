@@ -7,15 +7,17 @@ import { get, post } from "../utilities";
 import { socket } from "../client-socket";
 
 import { UserContext } from "./context/UserContext";
+import { ProfileContext } from "./context/ProfileContext";
 
 const containerStyle = { width: "100vw", height: "100vh" };
 const center = { lat: 42.3601, lng: -71.0942 };
 
 const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [userName, setUserName] = useState("name");
-  const [userMajor, setUserMajor] = useState("major");
-  const [userKerb, setUserKerb] = useState("kerberos");
+  const {userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb} = useContext(ProfileContext);
+  // const [userName, setUserName] = useState("name");
+  // const [userMajor, setUserMajor] = useState("major");
+  // const [userKerb, setUserKerb] = useState("kerberos");
   const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
@@ -27,14 +29,14 @@ const Map = () => {
   const [postTrigger, setPostTrigger] = useState(0);
   const mapRef = useRef();
 
-  useEffect(() => {
-    const query = { id: userId };
-    get("/api/name-major-kerb", query).then((user) => {
-      setUserName(user.name);
-      setUserMajor(user.major);
-      setUserKerb(user.kerb);
-    });
-  });
+  // useEffect(() => {
+  //   const query = { id: userId };
+  //   get("/api/name-major-kerb", query).then((user) => {
+  //     setUserName(user.name);
+  //     setUserMajor(user.major);
+  //     setUserKerb(user.kerb);
+  //   });
+  // });
 
   useEffect(() => {
     const query = { id: userId };

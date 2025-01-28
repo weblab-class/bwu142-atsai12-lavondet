@@ -5,35 +5,43 @@ import "./Profile.css";
 import { get, post } from "../utilities";
 
 import { UserContext } from "./context/UserContext";
+import { ProfileContext } from "./context/ProfileContext";
 
 
 const Profile = ({ onClose }) => {
   // Initial default values for name and major
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  const {userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb} = useContext(ProfileContext);
 
-  const [userName, setUserName] = useState("name");
-  const [userMajor, setUserMajor] = useState("major");
-  const [userKerb, setUserKerb] = useState("kerberos");
+  // const [userName, setUserName] = useState("name");
+  // const [userMajor, setUserMajor] = useState("major");
+  // const [userKerb, setUserKerb] = useState("kerberos");
   const [tempName, setTempName] = useState(userName);
   const [tempMajor, setTempMajor] = useState(userMajor);
   const [tempKerb, setTempKerb] = useState(userKerb);
   const [trigger, setTrigger] = useState(false);
 
-  useEffect(() => {
-    const query = { id: userId };
-    get("/api/name-major-kerb", query).then((user) => {
-      setUserName(user.name);
-      setUserMajor(user.major);
-      setUserKerb(user.kerb);
-      setTrigger(true);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const query = { id: userId };
+  //   get("/api/profile", query).then((user) => {
+  //     setUserName(user.name);
+  //     setUserMajor(user.major);
+  //     setUserKerb(user.kerb);
+  //     setTrigger(true);
+  //   });
+  // }, []);
 
   useEffect(() => {
     setTempName(userName);
+  }, [userName]);
+
+  useEffect(() => {
     setTempMajor(userMajor);
+  }, [userMajor]);
+
+  useEffect(() => {
     setTempKerb(userKerb);
-  }, [trigger]);
+  }, [userKerb]);
 
   // Handle changes in the name input field
   const handleNameChange = (e) => {

@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {showProfile && <Profile onClose={closeProfile}/>}
+      {showProfile && <Profile onClose={closeProfile} />}
       {showFilter && <Filter />}
       {showFriends && <Friends />}
     </>

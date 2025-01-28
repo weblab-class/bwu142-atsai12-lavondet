@@ -47,10 +47,10 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.get("/name-major-kerb", (req, res) => {
+router.get("/profile", (req, res) => {
   Profile.findOne({id: req.query.id}).then((profile) => {
     if (profile && profile.name) {
-      res.send({name: profile.name, major: profile.major, kerb: profile.kerb});
+      res.send({name: profile.name, major: profile.major, kerb: profile.kerb, pfp: profile.pfp});
     } else {
       res.send({name: "name", major: "major"});
     }
@@ -83,18 +83,17 @@ router.post("/post", (req, res) => {
     kerb: req.body.kerb,
     info: req.body.info
   });
-  post.save().then((post) => 
-  { res.send(post);
-    socketManager.getIo.emit("new post", post);
-});
+  post.save()
+  res.send(post);
+  socketManager.getIo.emit("new post", post);
 })
 
 router.post("/remove-post", (req, res) => {
   Post.deleteOne({id: req.body.id})
   .then((marker) => {
     res.send(marker);
-    socketManager.getIo.emit("change post");
   });
+  socketManager.getIo.emit("change post");
 })
 
 router.post("/change-name", (req, res) => {

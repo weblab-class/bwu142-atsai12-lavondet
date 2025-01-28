@@ -32,7 +32,7 @@ const Filter = () => {
           <input
             type="text"
             className="custom-input"
-            placeholder="keyword"
+            placeholder="Keyword"
             value={customKeyword}
             onChange={(e) => setCustomKeyword(e.target.value)} // Update custom keyword on input change
           />

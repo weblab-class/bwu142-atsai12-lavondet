@@ -2,13 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import "../utilities.css";
 import "./Friends.css";
 import "./Switch.css";
+import FriendList from "./FriendList";
+import Requests from "./Requests";
 
 import { get, post } from "../utilities";
 
 import { UserContext } from "./context/UserContext";
 
 const Friends = () => {
-  const [active, setActive] = useState("left"); // "left" is initially active
+  const [active, setActive] = useState("friends"); // "left" is initially active
 
   const toggleActive = (side) => {
     setActive(side); // Update the active button
@@ -18,18 +20,19 @@ const Friends = () => {
     <div className="friends-container">
       <div className="switch-container">
         <button
-          className={`switch-button ${active === "left" ? "active" : ""}`}
-          onClick={() => toggleActive("left")}
+          className={`switch-button ${active === "friends" ? "active" : ""}`}
+          onClick={() => toggleActive("friends")}
         >
           Friends
         </button>
         <button
-          className={`switch-button ${active === "right" ? "active" : ""}`}
-          onClick={() => toggleActive("right")}
+          className={`switch-button ${active === "requests" ? "active" : ""}`}
+          onClick={() => toggleActive("requests")}
         >
           Requests
         </button>
       </div>
+      <div className="content">{active === "friends" ? <FriendList /> : <Requests />}</div>
     </div>
   );
 };

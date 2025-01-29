@@ -173,6 +173,7 @@ router.get("/friend", (req, res) => {
           kerb: profile.kerb,
           info: post.info,
         };
+        res.send(friend);
       } else {
         const friend = {
           name: profile.name,
@@ -180,8 +181,8 @@ router.get("/friend", (req, res) => {
           pfp: profile.pfp,
           kerb: profile.kerb,
         };
+        res.send(friend);
       }
-      res.send(friend);
     });
   });
 });

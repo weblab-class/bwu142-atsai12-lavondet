@@ -1,20 +1,32 @@
 .infoContainer {
-  padding: 20px;
-  max-width: 800px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 50px;
+  padding: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
   margin: auto;
   text-align: center;
+  z-index: 100;
 }
 
 h1 {
   color: #007bff;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+ol li {
+  margin: 20px 0;
+  font-size: 18px;
 }
 
-ul li {
-  margin: 10px 0;
-  font-size: 18px;
+.info-directions {
+  text-align: left;
+}
+
+.close-button {
+  right: 20px;
+  top: 20px;
 }

@@ -96,6 +96,7 @@ const Map = () => {
       });
       setPostTrigger(postTrigger + 1);
       setHasMarker(false);
+    //   window.location.reload();
     } else {
       setIsAddMode(!isAddMode);
     }
@@ -135,6 +136,7 @@ const Map = () => {
     setNewMarkerPosition(null);
     setMarkerInfo("");
     setHasMarker(true);
+    // window.location.reload();
   };
 
   const handleCancelMarker = () => {

@@ -81,7 +81,7 @@ const Requests = (props) => {
   //   console.log('reject friend request');
   // })
 
-  
+
 
   // Handle sending a friend request
   const sendRequest = (toId) => {
@@ -133,8 +133,8 @@ const Requests = (props) => {
                 <p>{user.name}</p>
                 <p>({user.major})</p>
               </div>
-              <button onClick={() => acceptRequest(user.id)}>Accept</button>
-              <button onClick={() => rejectRequest(user.id)}>Reject</button>
+              <button className="user-decision" onClick={() => acceptRequest(user.id)}>✓</button>
+              <button className="user-decision" onClick={() => rejectRequest(user.id)}>X</button>
             </div>
           ))
         ) : (

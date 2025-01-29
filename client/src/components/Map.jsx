@@ -16,6 +16,8 @@ const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
     useContext(ProfileContext);
+  const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
+    useContext(ProfileContext);
   // const [userName, setUserName] = useState("name");
   // const [userMajor, setUserMajor] = useState("major");
   // const [userKerb, setUserKerb] = useState("kerberos");
@@ -120,6 +122,7 @@ const Map = () => {
       major: userMajor,
       kerb: userKerb,
       info: markerInfo,
+      pfp: userPfp,
     };
     console.log("called");
     post("/api/post", body).then((marker) => {
@@ -208,6 +211,7 @@ const Map = () => {
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
+                  <img src={activeMarker.pfp} alt="profile-icon" className="profile-icon" />
                   <p>
                     <span className="Map-marker-hover">Username: </span>
                     {activeMarker.name}

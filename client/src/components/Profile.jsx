@@ -84,10 +84,8 @@ const Profile = ({ onClose }) => {
 
   return (
     <div className="profile-container">
-      {/* <div className="profile-pic">
-        <img src="src/public/profile.svg" alt="profile-icon" className="profile-icon" />
-        <button id="profile-edit-pfp">Edit</button>
-      </div> */}
+
+        <img src={userPfp} alt="profile-icon" className="profile-icon" />
 
       <button onClick={onClose} className="close-button">
         <img src="/src/public/close.svg" alt="Close" />

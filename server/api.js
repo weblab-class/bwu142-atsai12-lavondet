@@ -82,7 +82,8 @@ router.post("/post", (req, res) => {
     name: req.body.name,
     major: req.body.major,
     kerb: req.body.kerb,
-    info: req.body.info,
+    info: req.body.info,,
+    pfp: req.body.pfp
   };
   const postDb = new Post(post);
   postDb.save();

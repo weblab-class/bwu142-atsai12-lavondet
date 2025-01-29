@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema({
   major: String,
   kerb: String,
   info: String,
+  pfp: String,
 });
 
 // compile model from schema

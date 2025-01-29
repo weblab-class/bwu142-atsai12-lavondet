@@ -27,11 +27,11 @@ const Filter = (props) => {
     get("/api/friends", query).then((user) => {
       setFriends(user.friends);
     });
-    setTrigger(trigger + 1);
+    setTrigger((prevTrigger) => prevTrigger + 1);
   }, [selected, props.all_markers]);
 
   useEffect(() => {
-    const current = props.all_markers;
+    let current = props.all_markers;
     if (selected == "friends") {
       if (friends) {
         current = current.filter((marker) => friends.includes(marker.id));
@@ -44,7 +44,7 @@ const Filter = (props) => {
       current = current.filter((marker) => marker.info.toLowerCase().includes(customKeyword.toLowerCase()));
     }
     props.set_filtered(current);
-  }, [trigger]);
+  }, [trigger, majorKeyword, customKeyword]);
 
   return (
     <div className="filter-container">

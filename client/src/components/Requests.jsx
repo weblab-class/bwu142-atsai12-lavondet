@@ -85,7 +85,8 @@ const Requests = (props) => {
 
   // Handle sending a friend request
   const sendRequest = (toId) => {
-    post("/api/send-request", { from_id: userId, to_id: toId }).then(() => {
+    body = { from_id: userId, to_id: toId };
+    post("/api/send-request", body).then(() => {
       console.log(`Sent friend request to ${toId}`);
 
       // update UI: Remove user from recommended list after request is sent
@@ -96,7 +97,8 @@ const Requests = (props) => {
 
   // Handle accepting a friend request
   const acceptRequest = (fromId) => {
-    post("/api/accept-request", { from_id: fromId, to_id: userId }).then(() => {
+    body = { from_id: fromId, to_id: userId };
+    post("/api/accept-request", body).then(() => {
       console.log(`Accepted friend request from ${fromId}`);
 
       // update UI: Remove user from incoming requests after accepting
@@ -111,7 +113,8 @@ const Requests = (props) => {
 
   // Handle rejecting a friend request
   const rejectRequest = (fromId) => {
-    post("/api/reject-request", { from_id: fromId, to_id: userId }).then(() => {
+    body = { from_id: fromId, to_id: userId };
+    post("/api/reject-request", body).then(() => {
       console.log(`Rejected friend request from ${fromId}`);
 
       // update UI: Remove user from incoming requests after rejection

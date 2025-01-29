@@ -49,6 +49,8 @@ const FriendList = (props) => {
         setList(friends);
       }
       fetchFriends();
+    } else {
+      setList([]);
     }
   }, [props.ids]);
 

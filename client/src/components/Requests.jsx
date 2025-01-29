@@ -52,6 +52,24 @@ const Requests = (props) => {
     });
   });
 
+  // send request (recommended list) u can possibly add a sent message/button when clicked
+  // body = {from_id: userId, to_id: id of other user};
+  // post("/api/send-request").then((info) => {
+  //   console.log('added friend request');
+  // })
+
+  // accept request (incoming list) can possibly add an accepted message
+  // body = {from_id: id of other user, to_id: userId};
+  // post("/api/accept-request").then((info) => {
+  //   console.log('accepted friend request');
+  // })
+
+  // reject request (incoming list) can possibly add a reject message
+  // body = {from_id: id of other user, to_id: userId};
+  // post("/api/reject-request").then((info) => {
+  //   console.log('reject friend request');
+  // })
+
   return (
     <div className="requests-container">
       <div className="incoming-requests-container">

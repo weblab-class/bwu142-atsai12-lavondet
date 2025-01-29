@@ -203,6 +203,60 @@ router.get("/incoming", (req, res) => {
   });
 });
 
+router.post("/send-request", (req, res) => {
+  Profile.findOne({ id: req.body.from_id}).then((profile) => {
+    if (!Array.isArray(profile.sent)) {
+      profile.sent = [];
+    }
+    if (!profile.sent.includes(req.body.to_id)) {
+      profile.sent.push(req.body.to_id);
+    }
+    profile.save();
+  })
+  Profile.findOne({ id: req.body.to_id}).then((profile) => {
+    if (!Array.isArray(profile.incoming)) {
+      profile.incoming = [];
+    }
+    if (!profile.incoming.includes(req.body.from_id)) {
+      profile.incoming.push(req.body.from_id);
+    }
+    profile.save();
+  })
+  res.send(req.body);
+})
+
+router.post("/accept-request", (req, res) => {
+  Profile.findOne({ id: req.body.from_id}).then((profile) => {
+    if (!Array.isArray(profile.friends)) {
+      profile.friends = [];
+    }
+    profile.friends.push(req.body.to_id);
+    profile.sent = profile.sent.filter(id => id !== req.body.to_id);
+    profile.save();
+  })
+  Profile.findOne({ id: req.body.to_id}).then((profile) => {
+    if (!Array.isArray(profile.friends)) {
+      profile.friends = [];
+    }
+    profile.friends.push(req.body.from_id);
+    profile.incoming = profile.incoming.filter(id => id !== req.body.to_id);
+    profile.save();
+  })
+  res.send(req.body);
+})
+
+router.post("/reject-request", (req, res) => {
+  Profile.findOne({ id: req.body.from_id}).then((profile) => {
+    profile.sent = profile.sent.filter(id => id !== req.body.to_id);
+    profile.save();
+  })
+  Profile.findOne({ id: req.body.to_id}).then((profile) => {
+    profile.incoming = profile.incoming.filter(id => id !== req.body.to_id);
+    profile.save();
+  })
+  res.send(req.body);
+})
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

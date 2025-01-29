@@ -47,7 +47,7 @@ const Navbar = () => {
           {userId ? <button onClick={toggleFriends}>Friends</button> : null}
         </div>
         <div className="Navbar-right">
-            <img src="src/public/info.svg" alt="info-icon" className="info-icon" onClick={toggleInfo} />
+            <img src="src/public/info.svg" alt="info" className="info-icon" onClick={toggleInfo} />
           {userId ? <button onClick={toggleProfile}>Profile</button> : null}
           <Google id="Navbar-log" />
         </div>

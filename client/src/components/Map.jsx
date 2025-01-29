@@ -16,6 +16,8 @@ const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
     useContext(ProfileContext);
+  const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
+    useContext(ProfileContext);
 
   const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
@@ -42,22 +44,33 @@ const Map = () => {
 
   useEffect(() => {
     get("/api/posts").then((data) => {
+      console.log("markersset");
       setMarkers(data.posts);
     });
   }, [postTrigger]);
 
   const addPost = (post) => {
-    setMarkers([...markers, post]);
+    console.log("addPost");
+    console.log("hello", post);
+    // setMarkers([...markers, post]);
+    setMarkers((prevMarkers) => [...prevMarkers, post]);
   };
 
   const updatePosts = () => {
+    console.log("updatePosts");
     get("/api/posts").then((data) => {
+      console.log("data.posts", data.posts);
       setMarkers(data.posts);
     });
   };
 
   useEffect(() => {
+    console.log("markers has been changed", markers);
+  }, [markers]);
+
+  useEffect(() => {
     socket.on("new post", addPost);
+    console.log("listening for socket messsage");
     return () => {
       socket.off("new post", addPost);
     };
@@ -68,9 +81,10 @@ const Map = () => {
     return () => {
       socket.off("change post", updatePosts);
     };
-  });
+  }, []);
 
   const handleButtonClick = () => {
+    console.log("handleButtonClick");
     if (hasMarker) {
       const body = { id: userId };
       post("/api/remove-post", body).then((marker) => {
@@ -97,6 +111,7 @@ const Map = () => {
   };
 
   const handleSaveMarker = () => {
+    console.log("saveMarker");
     const body = {
       id: userId,
       lat: newMarkerPosition.lat,
@@ -107,8 +122,9 @@ const Map = () => {
       info: markerInfo,
       pfp: userPfp,
     };
+    console.log("called");
     post("/api/post", body).then((marker) => {
-      setMarkers((prevMarkers) => [...prevMarkers, marker]);
+      // setMarkers((prevMarkers) => [...prevMarkers, marker]);
     });
 
     setModalVisible(false);

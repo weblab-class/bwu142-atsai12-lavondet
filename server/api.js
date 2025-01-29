@@ -23,8 +23,8 @@ const router = express.Router();
 //initialize socket
 const socketManager = require("./server-socket");
 
-const mongoose = require('mongoose');
-const {ObjectId} = mongoose.Types;
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Types;
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -48,62 +48,65 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.get("/profile", (req, res) => {
-  Profile.findOne({id: req.query.id}).then((profile) => {
+  Profile.findOne({ id: req.query.id }).then((profile) => {
     if (profile && profile.name) {
-      res.send({name: profile.name, major: profile.major, kerb: profile.kerb, pfp: profile.pfp});
+      res.send({ name: profile.name, major: profile.major, kerb: profile.kerb, pfp: profile.pfp });
     } else {
-      res.send({name: "name", major: "major"});
+      res.send({ name: "name", major: "major" });
     }
   });
 });
 
 router.get("/find-post", (req, res) => {
-  Post.findOne({id: req.query.id}).then((post) => {
+  Post.findOne({ id: req.query.id }).then((post) => {
     if (post) {
-      res.send({exist: true});
+      res.send({ exist: true });
     } else {
-      res.send({exist: false});
+      res.send({ exist: false });
     }
-  })
-})
+  });
+});
 
 router.get("/posts", (req, res) => {
   Post.find({}).then((postData) => {
-    res.send({posts: postData});
-  })
-})
+    res.send({ posts: postData });
+  });
+});
 
 router.post("/post", (req, res) => {
-  const post = new Post({
+  console.log("post endpoint");
+  const post = {
     id: req.body.id,
     lat: req.body.lat,
     lng: req.body.lng,
     name: req.body.name,
     major: req.body.major,
     kerb: req.body.kerb,
-    info: req.body.info,
+    info: req.body.info,,
     pfp: req.body.pfp
-  });
-  post.save()
+  };
+  const postDb = new Post(post);
+  postDb.save();
+  socketManager.getIo().emit("new post", post);
   res.send(post);
-  socketManager.getIo.emit("new post", post);
-})
+});
 
 router.post("/remove-post", (req, res) => {
-  Post.deleteOne({id: req.body.id})
-  .then((marker) => {
+  Post.deleteOne({ id: req.body.id }).then((marker) => {
+    socketManager.getIo().emit("change post");
     res.send(marker);
   });
-  socketManager.getIo.emit("change post");
-})
+});
 
 router.post("/change-name", (req, res) => {
   const newName = req.body.name;
-  Profile.findOne({id: req.body.id}).then((profile) => {
-    profile.name = newName;
-    profile.save();
-  }).then(res.send({name:newName}));
-  Post.findOne({id: req.body.id}).then((post) => {
+  Profile.findOne({ id: req.body.id })
+    .then((profile) => {
+      profile.name = newName;
+      profile.save();
+    })
+    .then(res.send({ name: newName }));
+  Post.findOne({ id: req.body.id }).then((post) => {
     if (post) {
       post.name = newName;
       post.save();
@@ -114,14 +117,17 @@ router.post("/change-name", (req, res) => {
 
 router.post("/change-major", (req, res) => {
   const newMajor = req.body.major;
-  Profile.findOne({id: req.body.id}).then((profile) => {
-    profile.major = newMajor;
-    profile.save();
-  }).then(res.send({major: newMajor}));
-  Post.findOne({id: req.body.id}).then((post) => {
+  Profile.findOne({ id: req.body.id })
+    .then((profile) => {
+      profile.major = newMajor;
+      profile.save();
+    })
+    .then(res.send({ major: newMajor }));
+  Post.findOne({ id: req.body.id }).then((post) => {
     if (post) {
       post.major = newMajor;
       post.save();
+      socketManager.getIo().emit("change post");
     }
   });
   socketManager.getIo.emit("change post");
@@ -129,62 +135,70 @@ router.post("/change-major", (req, res) => {
 
 router.post("/change-kerb", (req, res) => {
   const newKerb = req.body.kerb;
-  Profile.findOne({id: req.body.id}).then((profile) => {
-    profile.kerb = newKerb;
-    profile.save();
-  }).then(res.send({kerb: newKerb}));
-  Post.findOne({id: req.body.id}).then((post) => {
+  Profile.findOne({ id: req.body.id })
+    .then((profile) => {
+      profile.kerb = newKerb;
+      profile.save();
+    })
+    .then(res.send({ kerb: newKerb }));
+  Post.findOne({ id: req.body.id }).then((post) => {
     if (post) {
       post.kerb = newKerb;
       post.save();
+      socketManager.getIo().emit("change post");
     }
   });
-  socketManager.getIo.emit("change post");
-})
+});
 
 router.get("/friends", (req, res) => {
-  Profile.findOne({id: req.query.id}).then((profile) => {
+  Profile.findOne({ id: req.query.id }).then((profile) => {
     if (Array.isArray(profile.friends) && profile.friends.length > 0) {
-      res.send({friends: profile.friends});
+      res.send({ friends: profile.friends });
     } else {
-      res.send({friends: []});
+      res.send({ friends: [] });
     }
   });
 });
 
 router.get("/friend", (req, res) => {
   const friend_id = req.query.id;
-  Profile.findOne({id: friend_id}).then((profile) => {
-    Post.findOne({id: friend_id}).then((post) => {
+  Profile.findOne({ id: friend_id }).then((profile) => {
+    Post.findOne({ id: friend_id }).then((post) => {
       if (post) {
-        const friend = {name: profile.name,
+        const friend = {
+          name: profile.name,
           major: profile.major,
           pfp: profile.pfp,
           kerb: profile.kerb,
-          info: post.info};
+          info: post.info,
+        };
       } else {
-        const friend = {name: profile.name,
+        const friend = {
+          name: profile.name,
           major: profile.major,
           pfp: profile.pfp,
-          kerb: profile.kerb};
+          kerb: profile.kerb,
+        };
       }
       res.send(friend);
-    })
-  })
-})
-
-router.get("/profiles", (req, res) => {
-  Profile.find({}).select('name major kerb pfp').then((profiles) => {
-    res.send({users: profiles});
+    });
   });
 });
 
+router.get("/profiles", (req, res) => {
+  Profile.find({})
+    .select("name major kerb pfp")
+    .then((profiles) => {
+      res.send({ users: profiles });
+    });
+});
+
 router.get("/incoming", (req, res) => {
-  Profile.findOne({id: req.query.id}).then((profile) => {
+  Profile.findOne({ id: req.query.id }).then((profile) => {
     if (Array.isArray(profile.incoming) && profile.incoming.length > 0) {
-      res.send({incoming: profile.incoming});
+      res.send({ incoming: profile.incoming });
     } else {
-      res.send({incoming: []});
+      res.send({ incoming: [] });
     }
   });
 });

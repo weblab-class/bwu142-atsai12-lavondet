@@ -28,7 +28,6 @@ const Map = () => {
   const [activeMarker, setActiveMarker] = useState(null);
   const [postTrigger, setPostTrigger] = useState(0);
   const [first, setFirst] = useState(0);
-  const [showFilter, setShowFilter] = useState(false);
   const mapRef = useRef();
 
   useEffect(() => {
@@ -44,55 +43,57 @@ const Map = () => {
       setFilteredMarkers(markers);
       setFirst(first+1);
     }
+    if (!filterVisible) {
+      setFilteredMarkers(markers);
+    }
   }, [markers]);
 
   useEffect(() => {
     get("/api/posts").then((data) => {
-      console.log("markersset");
       setMarkers(data.posts);
     });
   }, [postTrigger]);
 
-  const addPost = (post) => {
-    console.log("addPost");
-    console.log("hello", post);
-    // setMarkers([...markers, post]);
-    setMarkers((prevMarkers) => [...prevMarkers, post]);
-  };
+  // const addPost = (post) => {
+  //   console.log("addPost");
+  //   console.log("hello", post);
+  //   // setMarkers([...markers, post]);
+  //   setMarkers((prevMarkers) => [...prevMarkers, post]);
+  // };
 
-  const updatePosts = () => {
-    console.log("updatePosts");
-    get("/api/posts").then((data) => {
-      console.log("data.posts", data.posts);
-      setMarkers(data.posts);
-    });
-  };
+  // const updatePosts = () => {
+  //   console.log("updatePosts");
+  //   get("/api/posts").then((data) => {
+  //     console.log("data.posts", data.posts);
+  //     setMarkers(data.posts);
+  //   });
+  // };
 
-  useEffect(() => {
-    console.log("markers has been changed", markers);
-  }, [markers]);
+  // useEffect(() => {
+  //   console.log("markers has been changed", markers);
+  // }, [markers]);
 
-  useEffect(() => {
-    socket.on("new post", addPost);
-    console.log("listening for socket messsage");
-    return () => {
-      socket.off("new post", addPost);
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket.on("new post", addPost);
+  //   console.log("listening for socket messsage");
+  //   return () => {
+  //     socket.off("new post", addPost);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    socket.on("change post", updatePosts);
-    return () => {
-      socket.off("change post", updatePosts);
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket.on("change post", updatePosts);
+  //   return () => {
+  //     socket.off("change post", updatePosts);
+  //   };
+  // }, []);
 
   const handleButtonClick = () => {
     console.log("handleButtonClick");
     if (hasMarker) {
       const body = { id: userId };
       post("/api/remove-post", body).then((marker) => {
-        console.log("removed");
+        setMarkers((prevMarkers) => prevMarkers.filter((post) => post.id !== userId));
       });
       setPostTrigger(postTrigger + 1);
       setHasMarker(false);
@@ -129,7 +130,9 @@ const Map = () => {
     };
     console.log("called");
     post("/api/post", body).then((marker) => {
-      // setMarkers((prevMarkers) => [...prevMarkers, marker]);
+      setMarkers((prevMarkers) => [...prevMarkers, marker]);
+      setFilteredMarkers((prevMarkers) => [...prevMarkers, marker]);
+      console.log('marker added')
     });
 
     setModalVisible(false);

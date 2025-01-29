@@ -12,9 +12,9 @@
 }
 
 .profile-element {
-    font-family: "Funnel Sans";
-    font-size: var(--s);
-  }
+  font-family: "Funnel Sans";
+  font-size: var(--s);
+}
 
 .input-container {
   display: flex;
@@ -24,25 +24,14 @@
   transform: translate(-5px);
 }
 
-/* .profile-icon {
-    width: 60px;
-    height: auto;
-  }
-
-.profile-pic {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+.profile-icon {
+  width: 60px;
+  height: auto;
+  border-radius: 50%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
-#profile-edit-pfp {
-  background-color: rgb(224, 222, 222);
-  border-color: transparent;
-  border-radius: 15px;
-  padding: 2px 10px;
-} */
 
 /* divider */
 

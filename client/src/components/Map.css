@@ -62,7 +62,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
 .marker-disabled {
   pointer-events: none; /* Disable all interactions */
   cursor: not-allowed; /* Show a "disabled" cursor */
@@ -108,7 +107,6 @@
   filter: brightness(1.2);
 }
 
-
 .Map-marker-hover {
   font-weight: bold;
 }
@@ -117,3 +115,14 @@
   margin-top: 20px;
 }
 
+.profile-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-top: 0;
+}
+
+.Filter-post:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

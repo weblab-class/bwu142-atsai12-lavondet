@@ -28,6 +28,7 @@ const Map = () => {
   const [activeMarker, setActiveMarker] = useState(null);
   const [postTrigger, setPostTrigger] = useState(0);
   const [first, setFirst] = useState(0);
+  const [showFilter, setShowFilter] = useState(false);
   const mapRef = useRef();
 
   useEffect(() => {
@@ -149,6 +150,10 @@ const Map = () => {
     setActiveMarker(null); // Close the info window when clicked on the close button
   };
 
+  const closeFilter = () => {
+    setFilterVisible(false);
+  };
+
   return (
     <div>
       {userId ? (
@@ -157,8 +162,8 @@ const Map = () => {
             {isAddMode ? "Exit" : hasMarker ? "Remove" : "Add"}
           </button>
 
-          {filterVisible? (<Filter all_markers={markers} set_filtered={setFilteredMarkers} />):
-          (<button onClick={handleFilterClick} className="Filter-post">
+          {filterVisible? (<Filter all_markers={markers} set_filtered={setFilteredMarkers} onClose={closeFilter} />):
+          (<button onClick={handleFilterClick} onClose={closeFilter} className="Filter-post">
             {"Filter"}
           </button>)}
         </>
@@ -226,7 +231,7 @@ const Map = () => {
                       {activeMarker.name}
                     </p>
                     <p>
-                      <span className="Map-marker-hover">Major / course: </span>
+                      <span className="Map-marker-hover">Major / Course: </span>
                       {activeMarker.major}
                     </p>
                     <p>

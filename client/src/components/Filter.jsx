@@ -49,6 +49,9 @@ const Filter = (props) => {
   return (
     <div className="filter-container">
       <h3 className="filter-header">Filter by</h3>
+      <button onClick={props.onClose} className="close-button">
+        <img src="/src/public/close.svg" alt="Close" />
+      </button>
       <div className="filter-options">
         {/* Friends Filter */}
         <div className="filter-element">
@@ -76,7 +79,6 @@ const Filter = (props) => {
             placeholder="Major"
             value={majorKeyword}
             onChange={(e) => setMajorKeyword(e.target.value)}
-            disabled={selected !== "major"} // Enable only when selected
           />
         </div>
 
@@ -93,7 +95,6 @@ const Filter = (props) => {
             placeholder="Keyword"
             value={customKeyword}
             onChange={(e) => setCustomKeyword(e.target.value)}
-            disabled={selected !== "custom"} // Enable only when selected
           />
         </div>
       </div>

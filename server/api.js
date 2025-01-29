@@ -161,7 +161,7 @@ router.get("/friends", (req, res) => {
 });
 
 router.get("/friend", (req, res) => {
-  const friend_id = req.query.user_id;
+  const friend_id = req.query.id;
   Profile.findOne({ id: friend_id }).then((profile) => {
     Post.findOne({ id: friend_id }).then((post) => {
       if (post) {

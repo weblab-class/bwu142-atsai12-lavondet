@@ -166,6 +166,7 @@ router.get("/friend", (req, res) => {
     Post.findOne({ id: friend_id }).then((post) => {
       if (post) {
         const friend = {
+          id: profile.id,
           name: profile.name,
           major: profile.major,
           pfp: profile.pfp,

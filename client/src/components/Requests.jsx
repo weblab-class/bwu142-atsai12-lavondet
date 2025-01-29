@@ -115,7 +115,7 @@ const Requests = (props) => {
           incoming.map((user) => (
             <div key={user.id} className="friend-request">
               <img src={user.pfp} alt="pfp" className="user-icon" />
-              <div className="recommended-user-info">
+              <div className="incoming-user-info">
                 <p>{user.name}</p>
                 <p>({user.major})</p>
               </div>

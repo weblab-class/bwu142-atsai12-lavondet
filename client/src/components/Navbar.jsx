@@ -8,7 +8,6 @@ import { UserContext } from "./context/UserContext";
 
 const Navbar = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [showFilter, setShowFilter] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showFriends, setShowFriends] = useState(false);
 
@@ -16,24 +15,21 @@ const Navbar = () => {
     setShowProfile(!showProfile);
   };
 
-  const toggleFilter = () => {
-    setShowFilter(!showFilter);
-  };
-
   const toggleFriends = () => {
     setShowFriends(!showFriends);
   };
 
   const closeProfile = () => {
-    setShowProfile(false); // Set showProfile to false to hide the profile
+    setShowProfile(false);
   };
+
+
 
   return (
     <>
       <nav className="Navbar-container">
         <div className="Navbar-left">
           <button id="Navbar-home">Home</button>
-          <button onClick={toggleFilter}>Filter</button>
           {userId ? <button onClick={toggleFriends}>Friends</button> : null}
         </div>
         <div className="Navbar-right">
@@ -43,7 +39,6 @@ const Navbar = () => {
       </nav>
 
       {showProfile && <Profile onClose={closeProfile} />}
-      {/* {showFilter && <Filter />} */}
       {showFriends && <Friends />}
     </>
   );

@@ -3,7 +3,7 @@
   top: 12%;
   left: 50%;
   transform: translateX(-50%);
-  width: 300px; /* Increased width for more space */
+  width: 340px;
   height: auto;
   background-color: white;
   border-radius: 20px;
@@ -48,7 +48,7 @@ input[type="checkbox"] {
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 10px;
-  width: 140px;
+  width: 150px;
 }
 
 .custom-input:disabled {

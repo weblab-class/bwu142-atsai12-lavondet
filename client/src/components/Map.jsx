@@ -16,8 +16,6 @@ const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
     useContext(ProfileContext);
-  const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
-    useContext(ProfileContext);
 
   const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
@@ -29,6 +27,7 @@ const Map = () => {
   const [markerInfo, setMarkerInfo] = useState("");
   const [activeMarker, setActiveMarker] = useState(null);
   const [postTrigger, setPostTrigger] = useState(0);
+  const [first, setFirst] = useState(false);
   const mapRef = useRef();
 
   useEffect(() => {
@@ -39,14 +38,15 @@ const Map = () => {
   }, [userId]);
 
   useEffect(() => {
-    
-  })
+    setFilteredMarkers(markers);
+  }, [first]);
 
   useEffect(() => {
     get("/api/posts").then((data) => {
       console.log("markersset");
       setMarkers(data.posts);
     });
+    setFirst(true);
   }, [postTrigger]);
 
   const addPost = (post) => {

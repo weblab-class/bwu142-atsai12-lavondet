@@ -85,7 +85,7 @@ const Requests = (props) => {
 
   // Handle sending a friend request
   const sendRequest = (toId) => {
-    body = { from_id: userId, to_id: toId };
+    const body = { from_id: userId, to_id: toId };
     post("/api/send-request", body).then(() => {
       console.log(`Sent friend request to ${toId}`);
 
@@ -97,7 +97,7 @@ const Requests = (props) => {
 
   // Handle accepting a friend request
   const acceptRequest = (fromId) => {
-    body = { from_id: fromId, to_id: userId };
+    const body = { from_id: fromId, to_id: userId };
     post("/api/accept-request", body).then(() => {
       console.log(`Accepted friend request from ${fromId}`);
 
@@ -113,7 +113,7 @@ const Requests = (props) => {
 
   // Handle rejecting a friend request
   const rejectRequest = (fromId) => {
-    body = { from_id: fromId, to_id: userId };
+    const body = { from_id: fromId, to_id: userId };
     post("/api/reject-request", body).then(() => {
       console.log(`Rejected friend request from ${fromId}`);
 

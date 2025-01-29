@@ -16,8 +16,6 @@ const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
     useContext(ProfileContext);
-  const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
-    useContext(ProfileContext);
   // const [userName, setUserName] = useState("name");
   // const [userMajor, setUserMajor] = useState("major");
   // const [userKerb, setUserKerb] = useState("kerberos");

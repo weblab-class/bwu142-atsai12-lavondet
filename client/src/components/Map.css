@@ -112,3 +112,8 @@
 .Map-marker-hover {
   font-weight: bold;
 }
+
+.Map-marker-info {
+  margin-top: 20px;
+}
+

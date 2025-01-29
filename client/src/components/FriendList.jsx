@@ -37,7 +37,7 @@ const FriendList = (props) => {
         const friends = await Promise.all(
           props.ids.map(async (friend_id) => {
             const query = { id: friend_id };
-            const friend = await get("/api/friend", body);
+            const friend = await get("/api/friend", query);
             return friend;
           })
         );

@@ -29,4 +29,6 @@ ol li {
 .close-button {
   right: 20px;
   top: 20px;
+  width: 30px;
+  height: auto;
 }

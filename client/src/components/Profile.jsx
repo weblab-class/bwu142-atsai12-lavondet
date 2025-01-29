@@ -74,7 +74,7 @@ const Profile = ({ onClose }) => {
         <img src={userPfp} alt="profile-icon" className="profile-icon" />
 
       <button onClick={onClose} className="close-button">
-        <img src="/src/public/close.svg" alt="Close" />
+        <img src="https://i.imgur.com/zdbq35Z.png" alt="Close" />
       </button>
       {/* Name Section */}
 

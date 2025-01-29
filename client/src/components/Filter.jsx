@@ -50,7 +50,7 @@ const Filter = (props) => {
     <div className="filter-container">
       <h3 className="filter-header">Filter by</h3>
       <button onClick={props.onClose} className="close-button">
-        <img src="/src/public/close.svg" alt="Close" />
+        <img src="https://i.imgur.com/zdbq35Z.png" alt="Close" />
       </button>
       <div className="filter-options">
         {/* Friends Filter */}

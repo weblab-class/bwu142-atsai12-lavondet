@@ -6,7 +6,7 @@ const Info = ({onClose}) => {
     <div className="infoContainer">
       <h1>Welcome to StudBuds!</h1>
       <button onClick={onClose} className="close-button">
-        <img src="/src/public/close.svg" alt="Close"/>
+        <img src="https://i.imgur.com/zdbq35Z.png" alt="Close"/>
       </button>
       <p>
         A web-app that helps users find their ideal study buddies on campus.

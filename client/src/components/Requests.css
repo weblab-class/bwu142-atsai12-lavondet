@@ -54,11 +54,11 @@
 
 .requests-container button:last-child {
   margin-left: 8px;
-  background: #dc3545;
+  background:#28a745;
 }
 
 .requests-container button:last-child:hover {
-  background: #a71d2a;
+  background: #218838;
 }
 
 .requests-container hr {

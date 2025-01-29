@@ -44,7 +44,7 @@ const Filter = (props) => {
       current = current.filter((marker) => marker.info.toLowerCase().includes(customKeyword.toLowerCase()));
     }
     props.set_filtered(current);
-  }, [trigger, majorKeyword, customKeyword]);
+  }, [trigger, majorKeyword, customKeyword, props.all_markers]);
 
   return (
     <div className="filter-container">

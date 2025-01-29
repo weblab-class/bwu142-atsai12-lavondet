@@ -74,8 +74,7 @@ router.get("/posts", (req, res) => {
 });
 
 router.post("/post", (req, res) => {
-  console.log("post endpoint");
-  const post = {
+  const post = new Post({
     id: req.body.id,
     lat: req.body.lat,
     lng: req.body.lng,
@@ -84,16 +83,26 @@ router.post("/post", (req, res) => {
     kerb: req.body.kerb,
     info: req.body.info,
     pfp: req.body.pfp
-  };
-  const postDb = new Post(post);
-  postDb.save();
-  socketManager.getIo().emit("new post", post);
-  res.send(post);
+  });
+  post.save().then(res.send(post));
+  // console.log("post endpoint");
+  // const post = {
+  //   id: req.body.id,
+  //   lat: req.body.lat,
+  //   lng: req.body.lng,
+  //   name: req.body.name,
+  //   major: req.body.major,
+  //   kerb: req.body.kerb,
+  //   info: req.body.info,
+  //   pfp: req.body.pfp
+  // };
+  // const postDb = new Post(post);
+  // postDb.save();
+  // socketManager.getIo().emit("new post", post);
 });
 
 router.post("/remove-post", (req, res) => {
   Post.deleteOne({ id: req.body.id }).then((marker) => {
-    socketManager.getIo().emit("change post");
     res.send(marker);
   });
 });
@@ -112,7 +121,6 @@ router.post("/change-name", (req, res) => {
       post.save();
     }
   });
-  socketManager.getIo.emit("change post");
 });
 
 router.post("/change-major", (req, res) => {
@@ -127,10 +135,8 @@ router.post("/change-major", (req, res) => {
     if (post) {
       post.major = newMajor;
       post.save();
-      socketManager.getIo().emit("change post");
     }
   });
-  socketManager.getIo.emit("change post");
 });
 
 router.post("/change-kerb", (req, res) => {
@@ -145,7 +151,6 @@ router.post("/change-kerb", (req, res) => {
     if (post) {
       post.kerb = newKerb;
       post.save();
-      socketManager.getIo().emit("change post");
     }
   });
 });

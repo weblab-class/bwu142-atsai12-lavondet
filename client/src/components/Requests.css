@@ -1,0 +1,81 @@
+.requests-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.incoming-requests-container,
+.recommended-friends-container {
+  margin-bottom: 20px;
+}
+
+.requests-container h2 {
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.friend-request,
+.recommended-friend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  margin: 12px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.friend-request p,
+.recommended-friend p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.requests-container button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease-in-out;
+}
+
+.requests-container button:hover {
+  background: #0056b3;
+}
+
+.requests-container button:last-child {
+  margin-left: 8px;
+  background: #dc3545;
+}
+
+.requests-container button:last-child:hover {
+  background: #a71d2a;
+}
+
+.requests-container hr {
+  border: none;
+  height: 1px;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+.requests-container p {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.user-icon {
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+}

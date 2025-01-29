@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { get, post } from "../utilities";
 import { UserContext } from "./context/UserContext";
+import "./Requests.css";
 
 const Requests = (props) => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
@@ -50,7 +51,7 @@ const Requests = (props) => {
       // Set the recommended state
       setRecommended(selectedProfiles);
     });
-  });
+  }, [incomingIds, props.ids, userId]);
 
   // send request (recommended list) u can possibly add a sent message/button when clicked
   // body = {from_id: userId, to_id: id of other user};
@@ -70,14 +71,82 @@ const Requests = (props) => {
   //   console.log('reject friend request');
   // })
 
+  // Handle sending a friend request
+  const sendRequest = (toId) => {
+    post("/api/send-request", { from_id: userId, to_id: toId }).then(() => {
+      console.log(`Sent friend request to ${toId}`);
+
+      // update UI: Remove user from recommended list after request is sent
+      setRecommended((prevRecommended) => prevRecommended.filter((user) => user.id !== toId));
+    });
+  };
+
+  // Handle accepting a friend request
+  const acceptRequest = (fromId) => {
+    post("/api/accept-request", { from_id: fromId, to_id: userId }).then(() => {
+      console.log(`Accepted friend request from ${fromId}`);
+
+      // update UI: Remove user from incoming requests after accepting
+      setIncoming((prevIncoming) => prevIncoming.filter((user) => user.id !== fromId));
+      setIncomingIds((prevIds) => prevIds.filter((id) => id !== fromId));
+
+      // update UI: Add user to "friends" list (if you maintain one)
+      // props.setFriends([...props.friends, { id: fromId, name: user.name, major: user.major }]);
+    });
+  };
+
+  // Handle rejecting a friend request
+  const rejectRequest = (fromId) => {
+    post("/api/reject-request", { from_id: fromId, to_id: userId }).then(() => {
+      console.log(`Rejected friend request from ${fromId}`);
+
+      // update UI: Remove user from incoming requests after rejection
+      setIncoming((prevIncoming) => prevIncoming.filter((user) => user.id !== fromId));
+      setIncomingIds((prevIds) => prevIds.filter((id) => id !== fromId));
+    });
+  };
+
   return (
     <div className="requests-container">
+      {/* Incoming Friend Requests */}
       <div className="incoming-requests-container">
-        <h2>Incoming</h2>
+        <h2>Requests</h2>
+        {incoming.length > 0 ? (
+          incoming.map((user) => (
+            <div key={user.id} className="friend-request">
+              <img src={user.pfp} alt="pfp" className="user-icon" />
+              <div className="recommended-user-info">
+                <p>{user.name}</p>
+                <p>({user.major})</p>
+              </div>
+              <button onClick={() => acceptRequest(user.id)}>Accept</button>
+              <button onClick={() => rejectRequest(user.id)}>Reject</button>
+            </div>
+          ))
+        ) : (
+          <p>No incoming requests</p>
+        )}
       </div>
-      <hr></hr>
-      <div className="sent-requests-container">
-        <h2>Sent</h2>
+
+      <hr />
+
+      {/* Recommended Friends */}
+      <div className="recommended-friends-container">
+        <h2>Recommended</h2>
+        {recommended.length > 0 ? (
+          recommended.map((user) => (
+            <div key={user.id} className="recommended-friend">
+              <img src={user.pfp} alt="pfp" className="user-icon" />
+              <div className="recommended-user-info">
+                <p>{user.name}</p>
+                <p>({user.major})</p>
+              </div>
+              <button onClick={() => sendRequest(user.id)}>Add</button>
+            </div>
+          ))
+        ) : (
+          <p>No recommendations available</p>
+        )}
       </div>
     </div>
   );

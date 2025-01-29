@@ -1,12 +1,12 @@
 .friends-container {
-    position: absolute;
-    top: 12%;
-    left: 2%;
-    width: 20%;
-    height: 80vh;
-    background-color: white;
-   border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    padding: 20px 20px;
-  }
+  position: absolute;
+  top: 12%;
+  left: 2%;
+  width: 20%;
+  height: 80vh;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  padding: 20px 20px;
+}

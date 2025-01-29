@@ -14,7 +14,8 @@ const center = { lat: 42.3601, lng: -71.0942 };
 
 const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const {userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb} = useContext(ProfileContext);
+  const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
+    useContext(ProfileContext);
   // const [userName, setUserName] = useState("name");
   // const [userMajor, setUserMajor] = useState("major");
   // const [userKerb, setUserKerb] = useState("kerberos");
@@ -59,7 +60,7 @@ const Map = () => {
     get("/api/posts").then((data) => {
       setMarkers(data.posts);
     });
-  }
+  };
 
   useEffect(() => {
     socket.on("new post", addPost);
@@ -72,8 +73,8 @@ const Map = () => {
     socket.on("change post", updatePosts);
     return () => {
       socket.off("change post", updatePosts);
-    }
-  })
+    };
+  });
 
   const handleButtonClick = () => {
     if (hasMarker) {
@@ -193,6 +194,7 @@ const Map = () => {
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
+                    <img src={activeMarker.pfp} alt="profile-icon" className="profile-icon" />
                   <p>
                     <span className="Map-marker-hover">Username: </span>
                     {activeMarker.name}

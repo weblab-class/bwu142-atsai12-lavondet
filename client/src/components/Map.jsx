@@ -107,6 +107,7 @@ const Map = () => {
       major: userMajor,
       kerb: userKerb,
       info: markerInfo,
+      pfp: userPfp,
     };
     post("/api/post", body).then((marker) => {
       setMarkers((prevMarkers) => [...prevMarkers, marker]);

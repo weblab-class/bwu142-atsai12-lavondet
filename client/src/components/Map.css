@@ -22,6 +22,26 @@
   transition: transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+/* styling filter button */
+.Filter-post {
+  position: absolute;
+  top: 12%;
+  left: 47.5%; /* Horizontally centered */
+  width: 5%;
+  height: 5%;
+  z-index: 10; /* Make sure it stays on top */
+  background-color: white;
+  border-color: transparent;
+  border-radius: 20px;
+  padding: 10px 50px;
+  font-size: var(--m);
+  font-family: "Funnel Sans";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
 .Add-post:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

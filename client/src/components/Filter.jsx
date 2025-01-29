@@ -6,10 +6,13 @@ import { get, post } from "../utilities";
 
 import { UserContext } from "./context/UserContext";
 
-const Filter = () => {
+const Filter = (props) => {
+  const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [customKeyword, setCustomKeyword] = useState("");
   const [majorKeyword, setMajorKeyword] = useState("");
   const [selected, setSelected] = useState(null);
+  const [friends, setFriends] = useState([]);
+  const [trigger, setTrigger] = useState(0);
 
   const handleToggle = (option) => {
     if (selected === option) {
@@ -18,6 +21,30 @@ const Filter = () => {
       setSelected(option); // Select the option
     }
   };
+
+  useEffect(() => {
+    const query = { id: userId };
+    get("/api/friends", query).then((user) => {
+      setFriends(user.friends);
+    });
+    setTrigger(trigger + 1);
+  }, [selected, props.all_markers]);
+
+  useEffect(() => {
+    const current = props.all_markers;
+    if (selected == "friends") {
+      if (friends) {
+        current = current.filter((marker) => friends.includes(marker.id));
+      } else {
+        current = [];
+      }
+    } else if (selected === "major") {
+      current = current.filter((marker) => marker.major.includes(majorKeyword));
+    } else if (selected === "custom") {
+      current = current.filter((marker) => marker.info.toLowerCase().includes(customKeyword.toLowerCase()));
+    }
+    props.set_filtered(current);
+  }, [trigger]);
 
   return (
     <div className="filter-container">

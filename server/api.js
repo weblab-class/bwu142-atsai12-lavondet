@@ -107,9 +107,9 @@ router.post("/change-name", (req, res) => {
     if (post) {
       post.name = newName;
       post.save();
-      socketManager.getIo.emit("change post");
     }
   });
+  socketManager.getIo.emit("change post");
 });
 
 router.post("/change-major", (req, res) => {
@@ -122,9 +122,9 @@ router.post("/change-major", (req, res) => {
     if (post) {
       post.major = newMajor;
       post.save();
-      socketManager.getIo.emit("change post");
     }
   });
+  socketManager.getIo.emit("change post");
 });
 
 router.post("/change-kerb", (req, res) => {
@@ -137,9 +137,9 @@ router.post("/change-kerb", (req, res) => {
     if (post) {
       post.kerb = newKerb;
       post.save();
-      socketManager.getIo.emit("change post");
     }
   });
+  socketManager.getIo.emit("change post");
 })
 
 router.get("/friends", (req, res) => {

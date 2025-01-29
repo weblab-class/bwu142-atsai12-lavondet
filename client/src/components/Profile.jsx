@@ -13,23 +13,9 @@ const Profile = ({ onClose }) => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const {userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb} = useContext(ProfileContext);
 
-  // const [userName, setUserName] = useState("name");
-  // const [userMajor, setUserMajor] = useState("major");
-  // const [userKerb, setUserKerb] = useState("kerberos");
   const [tempName, setTempName] = useState(userName);
   const [tempMajor, setTempMajor] = useState(userMajor);
   const [tempKerb, setTempKerb] = useState(userKerb);
-  const [trigger, setTrigger] = useState(false);
-
-  // useEffect(() => {
-  //   const query = { id: userId };
-  //   get("/api/profile", query).then((user) => {
-  //     setUserName(user.name);
-  //     setUserMajor(user.major);
-  //     setUserKerb(user.kerb);
-  //     setTrigger(true);
-  //   });
-  // }, []);
 
   useEffect(() => {
     setTempName(userName);

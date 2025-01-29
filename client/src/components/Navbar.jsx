@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import "./Navbar.css";
 import Google from "./pages/Google";
 import Profile from "./Profile";
-import Filter from "./Filter";
+// import Filter from "./Filter";
 import Friends from "./Friends";
 import { UserContext } from "./context/UserContext";
 
@@ -43,7 +43,7 @@ const Navbar = () => {
       </nav>
 
       {showProfile && <Profile onClose={closeProfile} />}
-      {showFilter && <Filter />}
+      {/* {showFilter && <Filter />} */}
       {showFriends && <Friends />}
     </>
   );

@@ -16,28 +16,18 @@ const Map = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const { userName, userMajor, userKerb, userPfp, setUserName, setUserMajor, setUserKerb } =
     useContext(ProfileContext);
-  // const [userName, setUserName] = useState("name");
-  // const [userMajor, setUserMajor] = useState("major");
-  // const [userKerb, setUserKerb] = useState("kerberos");
+
   const [hasMarker, setHasMarker] = useState(false);
   const [isAddMode, setIsAddMode] = useState(false);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [newMarkerPosition, setNewMarkerPosition] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
   const [markerInfo, setMarkerInfo] = useState("");
   const [activeMarker, setActiveMarker] = useState(null);
   const [postTrigger, setPostTrigger] = useState(0);
   const mapRef = useRef();
-
-  // useEffect(() => {
-  //   const query = { id: userId };
-  //   get("/api/name-major-kerb", query).then((user) => {
-  //     setUserName(user.name);
-  //     setUserMajor(user.major);
-  //     setUserKerb(user.kerb);
-  //   });
-  // });
 
   useEffect(() => {
     const query = { id: userId };
@@ -45,6 +35,10 @@ const Map = () => {
       setHasMarker(posts.exist);
     });
   }, [userId]);
+
+  useEffect(() => {
+    
+  })
 
   useEffect(() => {
     get("/api/posts").then((data) => {
@@ -87,6 +81,10 @@ const Map = () => {
     } else {
       setIsAddMode(!isAddMode);
     }
+  };
+
+  const handleFilterClick = () => {
+    setFilterVisible(!filterVisible);
   };
 
   const handleMapClick = (event) => {
@@ -135,9 +133,16 @@ const Map = () => {
   return (
     <div>
       {userId ? (
-        <button onClick={handleButtonClick} className="Add-post">
-          {isAddMode ? "Exit" : hasMarker ? "Remove" : "Add"}
-        </button>
+        <>
+          <button onClick={handleButtonClick} className="Add-post">
+            {isAddMode ? "Exit" : hasMarker ? "Remove" : "Add"}
+          </button>
+
+          {filterVisible? (<Filter all_markers={markers} set_filtered={setFilteredMarkers} />):
+          (<button onClick={handleFilterClick} className="Filter-post">
+            {"Filter"}
+          </button>)}
+        </>
       ) : null}
 
       {modalVisible && (
@@ -171,7 +176,7 @@ const Map = () => {
             zoom={16}
             onClick={handleMapClick}
           >
-            {markers.map((marker, index) => (
+            {filteredMarkers.map((marker, index) => (
               <Marker
                 key={index}
                 position={{ lat: marker.lat, lng: marker.lng }}
@@ -195,7 +200,7 @@ const Map = () => {
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
                   }}
                 >
-                    <img src={activeMarker.pfp} alt="profile-icon" className="profile-icon" />
+                  <img src={activeMarker.pfp} alt="profile-icon" className="profile-icon" />
                   <p>
                     <span className="Map-marker-hover">Username: </span>
                     {activeMarker.name}
@@ -213,7 +218,6 @@ const Map = () => {
             )}
           </GoogleMap>
         </LoadScript>
-        {/* <Filter all_markers={markers} set_filtered={setFilteredMarkers} /> */}
       </div>
     </div>
   );

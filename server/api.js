@@ -266,6 +266,18 @@ router.post("/reject-request", (req, res) => {
   res.send(req.body);
 })
 
+router.post('/remove-friend', (req, res) => {
+  Profile.findOne({id: req.body.fromId}).then((profile) => {
+    profile.friends = profile.friends.filter(id => id != req.body.toId);
+    profile.save();
+  })
+  Profile.findOne({id: req.body.toId}).then((profile) => {
+    profile.friends = profile.friends.filter(id => id != req.body.fromId);
+    profile.save();
+  })
+  res.send({remove: toId});
+})
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

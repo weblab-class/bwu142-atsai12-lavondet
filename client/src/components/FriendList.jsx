@@ -4,6 +4,11 @@ import { get, post } from "../utilities";
 const FriendList = (props) => {
   const [list, setList] = useState([]);
 
+  // const body = {fromId: userId, toId: id};
+  // post('/remove-friend', body).then((user) => {
+  //   props.setIds(props.ids.filter(id => id != user.remove));
+  // });
+
   const listFriends = (list) => {
     if (list.length === 0) {
       return <></>;
@@ -34,7 +39,7 @@ const FriendList = (props) => {
       }
       fetchFriends();
     }
-  }, []);
+  }, [props.ids]);
 
   return (
     <div className="friend-list">

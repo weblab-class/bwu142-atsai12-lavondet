@@ -38,7 +38,7 @@ const Requests = (props) => {
       setIncoming(incoming_requests);
     }
     fetchIncoming();
-  }, [incomingIds]);
+  }, [incomingIds, sentIds]);
 
   // for recommended friends
   useEffect(() => {
@@ -61,7 +61,7 @@ const Requests = (props) => {
       // Set the recommended state
       setRecommended(selectedProfiles);
     });
-  }, [incomingIds, props.ids, userId]);
+  }, [incomingIds, sentIds, props.ids, userId]);
 
   // send request (recommended list) u can possibly add a sent message/button when clicked
   // body = {from_id: userId, to_id: id of other user};
@@ -80,6 +80,8 @@ const Requests = (props) => {
   // post("/api/reject-request").then((info) => {
   //   console.log('reject friend request');
   // })
+
+  
 
   // Handle sending a friend request
   const sendRequest = (toId) => {

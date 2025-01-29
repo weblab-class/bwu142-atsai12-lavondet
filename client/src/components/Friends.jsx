@@ -19,7 +19,7 @@ const Friends = () => {
     get("/api/friends", query).then((user) => {
       setIds(user.friends);
     });
-  });
+  }, [active]);
 
   const toggleActive = (side) => {
     setActive(side); // Update the active button

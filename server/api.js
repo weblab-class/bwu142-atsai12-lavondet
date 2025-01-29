@@ -282,7 +282,7 @@ router.post('/remove-friend', (req, res) => {
     profile.friends = profile.friends.filter(id => id != req.body.fromId);
     profile.save();
   })
-  res.send({remove: toId});
+  res.send({remove: req.body.toId});
 })
 
 // anything else falls to this "not found" case

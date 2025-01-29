@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "./context/UserContext";
 import { get, post } from "../utilities";
 import "./FriendList.css";
 
 const FriendList = (props) => {
   const [list, setList] = useState([]);
+  const { userId, handleLogin, handleLogout } = useContext(UserContext);
 
-  // const body = {fromId: userId, toId: id};
-  // post('/remove-friend', body).then((user) => {
-  //   props.setIds(props.ids.filter(id => id != user.remove));
-  // });
+  const removeFriend = (id) => {
+    const body = {fromId: userId, toId: id};
+    post('/api/remove-friend', body).then((user) => {
+      props.setIds(props.ids.filter(id => id != user.remove));
+    });
+  }
+
 
   // const body = {fromId: userId, toId: id};
   // post('/remove-friend', body).then((user) => {

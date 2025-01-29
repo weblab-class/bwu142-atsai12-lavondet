@@ -61,6 +61,14 @@
   background: #218838;
 }
 
+#reject-invite {
+    background:#dc3545;
+}
+
+#reject-invit:hover {
+    background: #a71d2a;
+}
+
 .requests-container hr {
   border: none;
   height: 1px;

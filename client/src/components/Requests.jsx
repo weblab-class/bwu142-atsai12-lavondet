@@ -137,7 +137,7 @@ const Requests = (props) => {
                 <p>({user.major})</p>
               </div>
               <button className="user-decision" onClick={() => acceptRequest(user.id)}>✓</button>
-              <button className="user-decision" onClick={() => rejectRequest(user.id)}>X</button>
+              <button className="user-decision" id="reject-invite" onClick={() => rejectRequest(user.id)}>X</button>
             </div>
           ))
         ) : (

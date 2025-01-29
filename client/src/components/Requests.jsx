@@ -104,7 +104,8 @@ const Requests = (props) => {
       setIncomingIds((prevIds) => prevIds.filter((id) => id !== fromId));
 
       // update UI: Add user to "friends" list (if you maintain one)
-      // props.setFriends([...props.friends, { id: fromId, name: user.name, major: user.major }]);
+      props.setIds((prevIds) => [...prevIds, toId])
+
     });
   };
 

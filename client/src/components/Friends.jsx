@@ -41,7 +41,7 @@ const Friends = () => {
           Requests
         </button>
       </div>
-      <div className="content">{active === "friends" ? <FriendList ids={ids} setIds={setIds}/> : <Requests />}</div>
+      <div className="content">{active === "friends" ? <FriendList ids={ids} setIds={setIds}/> : <Requests ids={ids} setIds={setIds}/>}</div>
     </div>
   );
 };

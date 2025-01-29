@@ -33,11 +33,17 @@ const Navbar = () => {
     setShowInfo(false);
   }
 
+  const clickHome = () => {
+    setShowProfile(false);
+    setShowFriends(false);
+    setShowInfo(false);
+  };
+
   return (
     <>
       <nav className="Navbar-container">
         <div className="Navbar-left">
-          <button id="Navbar-home">Home</button>
+          <button id="Navbar-home" onClick={clickHome}>Home</button>
           {userId ? <button onClick={toggleFriends}>Friends</button> : null}
         </div>
         <div className="Navbar-right">

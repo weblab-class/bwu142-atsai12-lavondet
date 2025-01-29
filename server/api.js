@@ -181,6 +181,7 @@ router.get("/friend", (req, res) => {
         res.send(friend);
       } else {
         const friend = {
+          id: profile.id,
           name: profile.name,
           major: profile.major,
           pfp: profile.pfp,

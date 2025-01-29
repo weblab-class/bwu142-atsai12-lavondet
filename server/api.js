@@ -188,7 +188,7 @@ router.get("/friend", (req, res) => {
 
 router.get("/profiles", (req, res) => {
   Profile.find({})
-    .select("name major kerb pfp")
+    .select("id name major kerb pfp")
     .then((profiles) => {
       res.send({ users: profiles });
     });
@@ -200,6 +200,16 @@ router.get("/incoming", (req, res) => {
       res.send({ incoming: profile.incoming });
     } else {
       res.send({ incoming: [] });
+    }
+  });
+});
+
+router.get("/sent", (req, res) => {
+  Profile.findOne({ id: req.query.id }).then((profile) => {
+    if (Array.isArray(profile.sent) && profile.sent.length > 0) {
+      res.send({ sent: profile.sent });
+    } else {
+      res.send({ sent: [] });
     }
   });
 });
@@ -218,9 +228,7 @@ router.post("/send-request", (req, res) => {
     if (!Array.isArray(profile.incoming)) {
       profile.incoming = [];
     }
-    if (!profile.incoming.includes(req.body.from_id)) {
-      profile.incoming.push(req.body.from_id);
-    }
+    profile.incoming.push(req.body.from_id);
     profile.save();
   })
   res.send(req.body);

@@ -6,6 +6,7 @@ import "./Requests.css";
 const Requests = (props) => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [incomingIds, setIncomingIds] = useState([]);
+  const [sentIds, setSentIds] = useState([]);
   const [incoming, setIncoming] = useState([]);
   const [recommended, setRecommended] = useState([]);
 
@@ -17,12 +18,20 @@ const Requests = (props) => {
     });
   }, []);
 
+  // for sent friend requests
+  useEffect(() => {
+    const query = { id: userId };
+    get("/api/sent", query).then((user) => {
+      setSentIds(user.sent);
+    });
+  }, []);
+
   useEffect(() => {
     async function fetchIncoming() {
       const incoming_requests = await Promise.all(
         incomingIds.map(async (user_id) => {
           const query = { id: user_id };
-          const user = await get("/api/friend", body);
+          const user = await get("/api/friend", query);
           return user;
         })
       );
@@ -41,6 +50,7 @@ const Requests = (props) => {
         (profile) =>
           (!props.ids || props.ids.length === 0 || !props.ids.includes(profile.id)) &&
           (!incomingIds || incomingIds.length === 0 || !incomingIds.includes(profile.id)) &&
+          (!sentIds || sentIds.length === 0 || !sentIds.includes(profile.id)) &&
           !(userId === profile.id)
       );
 
@@ -78,6 +88,7 @@ const Requests = (props) => {
 
       // update UI: Remove user from recommended list after request is sent
       setRecommended((prevRecommended) => prevRecommended.filter((user) => user.id !== toId));
+      setSentIds((prevSent) => [...prevSent, toId]);
     });
   };
 

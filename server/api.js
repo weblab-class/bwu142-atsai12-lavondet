@@ -249,7 +249,7 @@ router.post("/accept-request", (req, res) => {
       profile.friends = [];
     }
     profile.friends.push(req.body.from_id);
-    profile.incoming = profile.incoming.filter(id => id !== req.body.to_id);
+    profile.incoming = profile.incoming.filter(id => id !== req.body.from_id);
     profile.save();
   })
   res.send(req.body);
@@ -261,7 +261,7 @@ router.post("/reject-request", (req, res) => {
     profile.save();
   })
   Profile.findOne({ id: req.body.to_id}).then((profile) => {
-    profile.incoming = profile.incoming.filter(id => id !== req.body.to_id);
+    profile.incoming = profile.incoming.filter(id => id !== req.body.from_id);
     profile.save();
   })
   res.send(req.body);

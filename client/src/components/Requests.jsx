@@ -56,7 +56,7 @@ const Requests = (props) => {
 
       // Shuffle the filtered profiles and select up to 10
       const shuffledProfiles = filteredProfiles.sort(() => 0.5 - Math.random());
-      const selectedProfiles = shuffledProfiles.slice(0, 10);
+      const selectedProfiles = shuffledProfiles.slice(0, 5);
 
       // Set the recommended state
       setRecommended(selectedProfiles);
